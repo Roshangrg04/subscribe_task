@@ -193,6 +193,8 @@ class _HomePageState extends State<HomePage> {
                                   SizedBox(height: 16),
                                   Expanded(
                                       child: Container(
+                                    width: double.infinity,
+                                    height: double.infinity,
                                     decoration: BoxDecoration(
                                         color: Colors.grey,
                                         borderRadius: BorderRadius.only(
@@ -276,6 +278,8 @@ class _HomePageState extends State<HomePage> {
                                   SizedBox(height: 16),
                                   Expanded(
                                       child: Container(
+                                    width: double.infinity,
+                                    height: double.infinity,
                                     decoration: BoxDecoration(
                                         color: Colors.grey,
                                         borderRadius: BorderRadius.only(
