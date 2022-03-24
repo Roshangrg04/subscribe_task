@@ -17,16 +17,6 @@ class NflixSubscribe extends StatefulWidget {
 
 class _NflixSubscribeState extends State<NflixSubscribe> {
   @override
-  int _current = 0;
-  List imgList = [
-    'asset/images/image4.png',
-    'asset/images/image8.png',
-    'asset/images/image7.png'
-  ];
-
-  List money = ['20.00', '48.00', '17.00'];
-  List plan = ['Netlfix Standard', 'Youtube Premium', 'Spotify'];
-
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -75,6 +65,7 @@ class _NflixSubscribeState extends State<NflixSubscribe> {
                         )),
                     Text(
                       "You have subscribed for a Monthly package.",
+                      textAlign: TextAlign.center,
                       style: GoogleFonts.roboto(
                         textStyle: TextStyle(
                           fontSize: 18,
