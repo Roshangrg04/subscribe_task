@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:subscribe_task/models/models.dart';
 
 class SubsPage extends StatefulWidget {
   const SubsPage({Key? key}) : super(key: key);
@@ -80,268 +81,113 @@ class _SubsPageState extends State<SubsPage> {
                     Column(
                       children: [
                         CarouselSlider(
-                          options: CarouselOptions(
-                              height: 294,
-                              enlargeCenterPage: true,
-                              viewportFraction: 0.65,
-                              onPageChanged: (index, reason) {
-                                setState(() {
-                                  _current = index;
-                                });
-                              }),
-                          items: [
-                            Container(
-                                width: MediaQuery.of(context).size.width,
+                            options: CarouselOptions(
                                 height: 294,
-                                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(21)),
-                                child: Column(
-                                  children: [
-                                    Row(
+                                enlargeCenterPage: true,
+                                viewportFraction: 0.65,
+                                onPageChanged: (index, reason) {
+                                  setState(() {
+                                    _current = index;
+                                  });
+                                }),
+                            items: dataList.map((i) {
+                              return Builder(builder: (BuildContext context) {
+                                return Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 294,
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 5.0),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(21)),
+                                    child: Column(
                                       children: [
-                                        Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              29.65, 33, 25.81, 19.5),
-                                          child: Image.asset(
-                                            imgList[0],
-                                            height: 72.5,
-                                            width: 65.54,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    EdgeInsets.only(bottom: 11),
-                                                child: Text("\$" + money[0],
-                                                    style: TextStyle(
-                                                        fontSize: 24,
-                                                        fontWeight:
-                                                            FontWeight.w600)),
+                                        Row(
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  29.65, 33, 25.81, 19.5),
+                                              child: Image.asset(
+                                                i.imageURL,
+                                                height: 72.5,
+                                                width: 65.54,
+                                                fit: BoxFit.cover,
                                               ),
-                                              Text("Monthly",
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w600,
-                                                  ))
-                                            ]),
-                                      ],
-                                    ),
-                                    Text(plan[0],
-                                        style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                    Padding(
-                                      padding: EdgeInsets.only(bottom: 29),
-                                      child: Text(
-                                        "Unlimited movies, TV shows and many more",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w300),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    Expanded(
-                                        child: InkWell(
-                                      onTap: () => {
-                                        Navigator.pushNamed(
-                                            context, "/netflixsubs")
-                                      },
-                                      child: Container(
-                                        height: 69,
-                                        decoration: BoxDecoration(
-                                            color:
-                                                Color.fromARGB(255, 247, 19, 3),
-                                            borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(21),
-                                                bottomRight:
-                                                    Radius.circular(21))),
-                                        child: Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            "Subscribe",
+                                            ),
+                                            Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding: EdgeInsets.only(
+                                                        bottom: 11),
+                                                    child: Text(
+                                                        "\$" +
+                                                            i.price.toString(),
+                                                        style: TextStyle(
+                                                            fontSize: 24,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600)),
+                                                  ),
+                                                  Text("Monthly",
+                                                      style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ))
+                                                ]),
+                                          ],
+                                        ),
+                                        Text(i.plan,
                                             style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                        ),
-                                      ),
-                                    ))
-                                  ],
-                                )),
-                            Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: 294,
-                                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(21)),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                            )),
                                         Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              29.65, 33, 25.81, 19.5),
-                                          child: Image.asset(
-                                            imgList[1],
-                                            height: 72.5,
-                                            width: 65.54,
-                                            fit: BoxFit.cover,
+                                          padding: EdgeInsets.only(bottom: 29),
+                                          child: Text(
+                                            i.desc,
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w300),
+                                            textAlign: TextAlign.center,
                                           ),
                                         ),
-                                        Column(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  EdgeInsets.only(bottom: 11),
-                                              child: Text("\$" + money[1],
-                                                  style: TextStyle(
-                                                      fontSize: 24,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
+                                        Expanded(
+                                            child: InkWell(
+                                          onTap: () => {
+                                            Navigator.pushNamed(
+                                                context, "/" + i.route)
+                                          },
+                                          child: Container(
+                                            height: 69,
+                                            decoration: BoxDecoration(
+                                                color: Color.fromARGB(
+                                                    255, 247, 19, 3),
+                                                borderRadius: BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(21),
+                                                    bottomRight:
+                                                        Radius.circular(21))),
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                "Subscribe",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
                                             ),
-                                            Text(
-                                              "Monthly",
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.grey),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                      plan[1],
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(bottom: 29),
-                                      child: Text(
-                                        "Enjoy the videos and music you love, upload original...",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    Expanded(
-                                        child: Container(
-                                      height: 69,
-                                      decoration: BoxDecoration(
-                                          color:
-                                              Color.fromARGB(255, 247, 19, 3),
-                                          borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(21),
-                                              bottomRight:
-                                                  Radius.circular(21))),
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "Subscribe",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                      ),
-                                    ))
-                                  ],
-                                )),
-                            Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: 294,
-                                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(21)),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              29.65, 33, 25.81, 19.5),
-                                          child: Image.asset(
-                                            imgList[2],
-                                            height: 72.5,
-                                            width: 65.54,
-                                            fit: BoxFit.cover,
                                           ),
-                                        ),
-                                        Column(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  EdgeInsets.only(bottom: 11),
-                                              child: Text("\$" + money[2],
-                                                  style: TextStyle(
-                                                      fontSize: 24,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            ),
-                                            Text(
-                                              "Monthly",
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.grey),
-                                            ),
-                                          ],
-                                        ),
+                                        ))
                                       ],
-                                    ),
-                                    Text(
-                                      plan[2],
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(bottom: 29),
-                                      child: Text(
-                                        "Play Your Favorite Songs. Find New Music and See...",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    Expanded(
-                                        child: Container(
-                                      height: 69,
-                                      decoration: BoxDecoration(
-                                          color:
-                                              Color.fromARGB(255, 247, 19, 3),
-                                          borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(21),
-                                              bottomRight:
-                                                  Radius.circular(21))),
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "Subscribe",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                      ),
-                                    ))
-                                  ],
-                                )),
-                          ],
-                        ),
+                                    ));
+                              });
+                            }).toList()),
                         SizedBox(
                           height: 20,
                         ),

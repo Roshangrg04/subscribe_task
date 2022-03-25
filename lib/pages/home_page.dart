@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ffi';
 import 'dart:ui';
 
@@ -7,6 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:subscribe_task/models/models.dart';
+import 'package:subscribe_task/pages/Subscribe.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -147,263 +150,99 @@ class _HomePageState extends State<HomePage> {
                               _current = index;
                             });
                           }),
-                      items: [
-                        InkWell(
-                          onTap: () =>
-                              {Navigator.pushNamed(context, "/subspage")},
-                          child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.symmetric(horizontal: 5),
-                              height: 164,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(21)),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(19, 24, 12, 14),
-                                        child: Image.asset(imgList[0]),
-                                      ),
-                                      Column(children: [
+                      items: dataList.map((i) {
+                        return Builder(builder: (BuildContext context) {
+                          return InkWell(
+                            onTap: () =>
+                                {Navigator.pushNamed(context, "/subspage")},
+                            child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: EdgeInsets.symmetric(horizontal: 5),
+                                height: 164,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(21)),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
                                         Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 12, bottom: 2.4),
-                                          child: Text("\$" + money[0],
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold)),
-                                        ),
-                                        Text("Monthly",
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.grey),
-                                            textAlign: TextAlign.left)
-                                      ]),
-                                    ],
-                                  ),
-                                  Text(plan[0],
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600),
-                                      textAlign: TextAlign.center),
-                                  SizedBox(height: 16),
-                                  Expanded(
-                                      child: Container(
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                        borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(21),
-                                            bottomRight: Radius.circular(21))),
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Row(children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 20),
-                                          child: CircularPercentIndicator(
-                                            radius: 14,
-                                            lineWidth: 2.0,
-                                            backgroundColor: Colors.black,
-                                            progressColor: Color.fromARGB(
-                                                255, 233, 231, 231),
-                                            percent: 8 / 30,
+                                          padding: EdgeInsets.fromLTRB(
+                                              19, 24, 12, 14),
+                                          child: Image.asset(
+                                            i.imageURL,
+                                            height: 42,
+                                            width: 42,
                                           ),
                                         ),
-                                        Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 15, right: 15),
-                                            child: Text(
-                                              "08 Days Remaining",
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Color.fromARGB(
-                                                      255, 44, 43, 43)),
-                                            )),
-                                      ]),
-                                    ),
-                                  ))
-                                ],
-                              )),
-                        ),
-                        InkWell(
-                          onTap: () =>
-                              {Navigator.pushNamed(context, "/subspage")},
-                          child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 164,
-                              margin: EdgeInsets.symmetric(horizontal: 5),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(21)),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(0, 14, 3.92, 5),
-                                        child: Image.asset(imgList[1]),
-                                      ),
-                                      Column(
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(left: 5),
-                                            child: Text("\$" + money[1],
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                          ),
-                                          Text(
-                                            "Monthly",
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.grey),
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Text(plan[1],
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600),
-                                      textAlign: TextAlign.center),
-                                  SizedBox(height: 16),
-                                  Expanded(
-                                      child: Container(
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                        borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(21),
-                                            bottomRight: Radius.circular(21))),
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Row(children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 20),
-                                          child: CircularPercentIndicator(
-                                            radius: 14,
-                                            lineWidth: 2.0,
-                                            backgroundColor: Colors.black,
-                                            progressColor: Color.fromARGB(
-                                                255, 233, 231, 231),
-                                            percent: 8 / 30,
-                                          ),
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 15, right: 15),
-                                            child: Text(
-                                              "08 Days Remaining",
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Color.fromARGB(
-                                                      255, 44, 43, 43)),
-                                            )),
-                                      ]),
-                                    ),
-                                  ))
-                                ],
-                              )),
-                        ),
-                        InkWell(
-                          onTap: () =>
-                              {Navigator.pushNamed(context, "/subspage")},
-                          child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.symmetric(horizontal: 5),
-                              height: 164,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(21)),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(19, 24, 12, 14),
-                                        child: Image.asset(imgList[2]),
-                                      ),
-                                      Column(
-                                        children: [
+                                        Column(children: [
                                           Padding(
                                             padding: EdgeInsets.only(
                                                 left: 12, bottom: 2.4),
-                                            child: Text("\$" + money[2],
+                                            child: Text(
+                                                "\$" + i.price.toString(),
                                                 style: TextStyle(
                                                     fontSize: 18,
                                                     fontWeight:
                                                         FontWeight.bold)),
                                           ),
-                                          Text(
-                                            "Monthly",
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.grey),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    plan[2],
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  SizedBox(height: 16),
-                                  Expanded(
-                                      child: Container(
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(21),
-                                          bottomRight: Radius.circular(21)),
-                                    ),
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Row(children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 20),
-                                          child: CircularPercentIndicator(
-                                            radius: 14,
-                                            lineWidth: 2.0,
-                                            backgroundColor: Colors.black,
-                                            progressColor: Color.fromARGB(
-                                                255, 233, 231, 231),
-                                            percent: 8 / 30,
-                                          ),
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.only(left: 15),
-                                            child: Text(
-                                              "08 Days Remaining",
+                                          Text("Monthly",
                                               style: TextStyle(
                                                   fontSize: 12,
-                                                  color: Color.fromARGB(
-                                                      255, 44, 43, 43)),
-                                            )),
-                                      ]),
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.grey),
+                                              textAlign: TextAlign.left)
+                                        ]),
+                                      ],
                                     ),
-                                  ))
-                                ],
-                              )),
-                        ),
-                      ],
+                                    Text(i.plan,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600),
+                                        textAlign: TextAlign.center),
+                                    SizedBox(height: 16),
+                                    Expanded(
+                                        child: Container(
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(21),
+                                              bottomRight:
+                                                  Radius.circular(21))),
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 20),
+                                            child: CircularPercentIndicator(
+                                              radius: 14,
+                                              lineWidth: 2.0,
+                                              backgroundColor: Colors.black,
+                                              progressColor: Color.fromARGB(
+                                                  255, 233, 231, 231),
+                                              percent: 8 / 30,
+                                            ),
+                                          ),
+                                          Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: 15, right: 15),
+                                              child: Text(
+                                                "08 Days Remaining",
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: Color.fromARGB(
+                                                        255, 44, 43, 43)),
+                                              )),
+                                        ]),
+                                      ),
+                                    ))
+                                  ],
+                                )),
+                          );
+                        });
+                      }).toList(),
                     ),
                     SizedBox(
                       height: 20,
@@ -427,8 +266,9 @@ class _HomePageState extends State<HomePage> {
                           fontWeight: FontWeight.w600,
                           color: Colors.white),
                     ),
+                    SizedBox(height: 19),
                     Container(
-                      margin: EdgeInsets.fromLTRB(20, 19, 20, 21),
+                      margin: EdgeInsets.fromLTRB(20, 0, 20, 21),
                       height: 72,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(21),
@@ -610,5 +450,9 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  Widget buildContainer(index) {
+    return Container();
   }
 }
