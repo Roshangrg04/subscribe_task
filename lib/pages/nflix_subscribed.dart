@@ -93,53 +93,6 @@ class _NflixSubscribeState extends State<NflixSubscribe> {
             ),
           ],
         ),
-        bottomNavigationBar: SizedBox(
-          height: 70,
-          child: BottomNavigationBar(
-            showUnselectedLabels: true,
-            showSelectedLabels: true,
-            backgroundColor: Color.fromARGB(255, 41, 40, 40),
-            currentIndex: 2,
-            items: [
-              BottomNavigationBarItem(
-                icon: ImageIcon(
-                  AssetImage("asset/images/Vectorhome.png"),
-                  size: 15,
-                ),
-                backgroundColor: Color.fromARGB(255, 41, 40, 40),
-                label: "Home",
-              ),
-              BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage("asset/images/Vectornews.png"),
-                    size: 15,
-                  ),
-                  backgroundColor: Color.fromARGB(255, 41, 40, 40),
-                  label: "News"),
-              BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage("asset/images/Vectorsubscribe.png"),
-                    size: 15,
-                  ),
-                  backgroundColor: Color.fromARGB(255, 41, 40, 40),
-                  label: "Subscribe"),
-              BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage("asset/images/heart1 1.png"),
-                    size: 15,
-                  ),
-                  backgroundColor: Color.fromARGB(255, 41, 40, 40),
-                  label: "Victim"),
-              BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage("asset/images/Vectorprofile.png"),
-                    size: 15,
-                  ),
-                  backgroundColor: Color.fromARGB(255, 70, 68, 68),
-                  label: "Profile"),
-            ],
-          ),
-        ),
       ),
     );
   }

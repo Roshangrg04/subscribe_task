@@ -8,6 +8,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:subscribe_task/models/models.dart';
 
+import '../models/payments.dart';
+
 class SubsPage extends StatefulWidget {
   const SubsPage({Key? key}) : super(key: key);
 
@@ -18,14 +20,6 @@ class SubsPage extends StatefulWidget {
 class _SubsPageState extends State<SubsPage> {
   @override
   int _current = 0;
-  List imgList = [
-    'asset/images/image4.png',
-    'asset/images/image8.png',
-    'asset/images/image7.png'
-  ];
-
-  List money = ['20.00', '48.00', '17.00'];
-  List plan = ['Netlfix Standard', 'Youtube Premium', 'Spotify'];
 
   Widget build(BuildContext context) {
     return SafeArea(
@@ -193,197 +187,106 @@ class _SubsPageState extends State<SubsPage> {
                         ),
                         AnimatedSmoothIndicator(
                           activeIndex: _current,
-                          count: imgList.length,
+                          count: dataList.length,
                           effect: ScrollingDotsEffect(
                               fixedCenter: true, activeDotColor: Colors.white),
                         )
                       ],
                     ),
-                    Text(
-                      "Payment History",
-                      style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(20, 19, 20, 21),
-                      height: 72,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(21),
-                          color: Colors.white),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(19, 26, 21, 21),
-                            child: Image.asset(
-                              "asset/images/image5.png",
-                              height: 25,
-                              width: 25,
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(top: 21, bottom: 8),
-                                child: Text(
-                                  "Netflix Standard",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(bottom: 5),
-                                child: Text(
-                                  "1 Feb 11:30 am",
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
+                    Padding(
+                      padding: EdgeInsets.only(top: 22, bottom: 19),
+                      child: Text(
+                        "Recent Subscription",
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
                       ),
                     ),
-                    Container(
-                      height: 72,
-                      margin: EdgeInsets.fromLTRB(20, 0, 20, 21),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(21),
-                          color: Colors.white),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(18, 26, 21, 21),
-                            child: Image.asset(
-                              "asset/images/image7.png",
-                              height: 25,
-                              width: 25,
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(top: 21, bottom: 8),
-                                child: Text(
-                                  "Spotify",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
+                    if (paymentHistory.length == 0) ...[
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 200,
+                        padding: EdgeInsets.only(top: 20),
+                        child: Align(
+                            alignment: Alignment.topCenter,
+                            child: Text(
+                              "NO SUBSCRIPTION YET",
+                              style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color.fromARGB(
+                                        255,
+                                        142,
+                                        142,
+                                        142,
+                                      ))),
+                            )),
+                      )
+                    ] else ...[
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 93 * paymentHistory.length.toDouble(),
+                        child: ListView.builder(
+                            itemCount: paymentHistory.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Container(
+                                margin: EdgeInsets.fromLTRB(20, 0, 20, 21),
+                                height: 72,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(21),
+                                    color: Colors.white),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.fromLTRB(19, 26, 21, 21),
+                                      child: Image.asset(
+                                        paymentHistory[index].imgUrl,
+                                        height: 25,
+                                        width: 25,
+                                      ),
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 21, bottom: 8),
+                                          child: Text(
+                                            paymentHistory[index].plan,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(bottom: 5),
+                                          child: Text(
+                                            paymentHistory[index]
+                                                .subscibed_date,
+                                            style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
                                 ),
-                              ),
-                              Text("15 Feb 1:30 pm",
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400))
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 72,
-                      margin: EdgeInsets.fromLTRB(20, 0, 20, 21),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(21),
-                          color: Colors.white),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(1, 11, 0, 12),
-                            child: Image.asset(
-                              "asset/images/image8.png",
-                              height: 65,
-                              width: 49,
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(top: 21, bottom: 8),
-                                child: Text(
-                                  "Youtube Premium",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Text("21 Feb 2:41 am",
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400))
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    )
+                              );
+                            }),
+                      )
+                    ],
                   ],
                 ),
               ),
             ),
           ],
-        ),
-        bottomNavigationBar: SizedBox(
-          height: 70,
-          child: BottomNavigationBar(
-            showUnselectedLabels: true,
-            showSelectedLabels: true,
-            backgroundColor: Color.fromARGB(255, 41, 40, 40),
-            currentIndex: 2,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: ImageIcon(
-                  AssetImage("asset/images/Vectorhome.png"),
-                  size: 15,
-                ),
-                backgroundColor: Color.fromARGB(255, 41, 40, 40),
-                label: "Home",
-              ),
-              BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage("asset/images/Vectornews.png"),
-                    size: 15,
-                  ),
-                  backgroundColor: Color.fromARGB(255, 41, 40, 40),
-                  label: "News"),
-              BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage("asset/images/Vectorsubscribe.png"),
-                    size: 15,
-                  ),
-                  backgroundColor: Color.fromARGB(255, 41, 40, 40),
-                  label: "Subscribe"),
-              BottomNavigationBarItem(
-                icon: ImageIcon(
-                  AssetImage("asset/images/heart1 1.png"),
-                  size: 15,
-                ),
-                label: "Victim",
-                backgroundColor: Color.fromARGB(255, 41, 40, 40),
-              ),
-              BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage("asset/images/Vectorprofile.png"),
-                    size: 15,
-                  ),
-                  backgroundColor: Color.fromARGB(255, 70, 68, 68),
-                  label: "Profile"),
-            ],
-          ),
         ),
       ),
     );
