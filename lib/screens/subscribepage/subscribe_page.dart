@@ -247,8 +247,7 @@ class _SubscribePageState extends State<SubscribePage> {
                     child: AnimatedSmoothIndicator(
                       activeIndex: _current,
                       count: dataList.length,
-                      effect: ScrollingDotsEffect(
-                          fixedCenter: true, activeDotColor: Colors.white),
+                      effect: WormEffect(activeDotColor: Colors.white),
                     ),
                   ),
                   Padding(

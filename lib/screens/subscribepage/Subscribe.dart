@@ -193,8 +193,7 @@ class _SubsPageState extends State<SubsPage> {
                         AnimatedSmoothIndicator(
                           activeIndex: _current,
                           count: dataList.length,
-                          effect:
-                              ScrollingDotsEffect(activeDotColor: Colors.white),
+                          effect: WormEffect(activeDotColor: Colors.white),
                         )
                       ],
                     ),
