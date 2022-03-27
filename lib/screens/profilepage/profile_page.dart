@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
-class NewsPage extends StatefulWidget {
-  const NewsPage({Key? key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
-  State<NewsPage> createState() => _NewsPageState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _NewsPageState extends State<NewsPage> {
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            body: CustomScrollView(slivers: [
+        child: CustomScrollView(slivers: [
       SliverFillRemaining(
           hasScrollBody: false,
           child: Container(
@@ -25,11 +24,11 @@ class _NewsPageState extends State<NewsPage> {
                     ),
                     fit: BoxFit.cover)),
             child: Text(
-              "NewsPage",
+              "Profile page",
               style: TextStyle(fontSize: 50, color: Colors.white),
               textAlign: TextAlign.center,
             ),
           ))
-    ])));
+    ]));
   }
 }

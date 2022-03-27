@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:subscribe_task/pages/Subscribe.dart';
-import 'package:subscribe_task/pages/main_page.dart';
-import 'package:subscribe_task/pages/subscribe_page.dart';
-import 'package:subscribe_task/pages/netflix_subscribe.dart';
-import 'package:subscribe_task/pages/nflix_subscribed.dart';
-import 'package:subscribe_task/pages/home_page.dart';
+import 'package:subscribe_task/screens/subscribepage/Subscribe.dart';
+import 'package:subscribe_task/screens/main_page.dart';
+import 'package:subscribe_task/screens/subscribepage/netflix_subscribe.dart';
+import 'package:subscribe_task/screens/subscribepage/nflix_subscribed.dart';
 
 void main() {
   runApp(MyApp());

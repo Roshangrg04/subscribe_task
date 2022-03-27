@@ -11,8 +11,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      body: CustomScrollView(slivers: [
+      child: CustomScrollView(slivers: [
         SliverFillRemaining(
             hasScrollBody: false,
             child: Container(
@@ -31,6 +30,6 @@ class _HomeState extends State<Home> {
               ),
             ))
       ]),
-    ));
+    );
   }
 }

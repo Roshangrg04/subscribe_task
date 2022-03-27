@@ -8,7 +8,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:subscribe_task/models/models.dart';
 
-import '../models/payments.dart';
+import '../../models/payments.dart';
 
 class SubsPage extends StatefulWidget {
   const SubsPage({Key? key}) : super(key: key);

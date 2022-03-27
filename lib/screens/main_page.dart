@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:subscribe_task/pages/home_page.dart';
-import 'package:subscribe_task/pages/news_page.dart';
-import 'package:subscribe_task/pages/profile_page.dart';
-import 'package:subscribe_task/pages/subscribe_page.dart';
-import 'package:subscribe_task/pages/victim_page.dart';
+import 'package:subscribe_task/screens/homepage/home_page.dart';
+import 'package:subscribe_task/screens/newspage/news_page.dart';
+import 'package:subscribe_task/screens/profilepage/profile_page.dart';
+import 'package:subscribe_task/screens/subscribepage/subscribe_page.dart';
+import 'package:subscribe_task/screens/victimpage/victim_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
