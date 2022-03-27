@@ -120,7 +120,9 @@ class _SubsPageState extends State<SubsPage> {
                                                         bottom: 11),
                                                     child: Text(
                                                         "\$" +
-                                                            i.price.toString(),
+                                                            i.price
+                                                                .toStringAsPrecision(
+                                                                    4),
                                                         style: TextStyle(
                                                             fontSize: 24,
                                                             fontWeight:
@@ -191,8 +193,8 @@ class _SubsPageState extends State<SubsPage> {
                         AnimatedSmoothIndicator(
                           activeIndex: _current,
                           count: dataList.length,
-                          effect: ScrollingDotsEffect(
-                              fixedCenter: true, activeDotColor: Colors.white),
+                          effect:
+                              ScrollingDotsEffect(activeDotColor: Colors.white),
                         )
                       ],
                     ),

@@ -9,6 +9,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:subscribe_task/models/models.dart';
 import 'package:subscribe_task/models/payments.dart';
+import 'package:subscribe_task/utils/routes.dart';
 
 class SubscribePage extends StatefulWidget {
   const SubscribePage({Key? key}) : super(key: key);
@@ -148,7 +149,7 @@ class _SubscribePageState extends State<SubscribePage> {
                       return Builder(builder: (BuildContext context) {
                         return InkWell(
                           onTap: () =>
-                              {Navigator.pushNamed(context, "/subspage")},
+                              {Navigator.pushNamed(context, MyRoutes.subspage)},
                           child: Container(
                               width: MediaQuery.of(context).size.width,
                               margin: EdgeInsets.symmetric(horizontal: 5),
@@ -176,7 +177,7 @@ class _SubscribePageState extends State<SubscribePage> {
                                           child: Text(
                                               "\$ " +
                                                   i.price
-                                                      .toStringAsPrecision(2),
+                                                      .toStringAsPrecision(4),
                                               style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold)),

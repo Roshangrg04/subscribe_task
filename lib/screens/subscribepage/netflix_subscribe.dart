@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:subscribe_task/utils/routes.dart';
 
 class NetFlixSub extends StatefulWidget {
   const NetFlixSub({Key? key}) : super(key: key);
@@ -343,7 +344,8 @@ class _NetFlixSubState extends State<NetFlixSub> {
                           borderRadius: BorderRadius.circular(15)),
                       child: InkWell(
                         onTap: () => {
-                          Navigator.pushNamed(context, "/netflixSubscribed")
+                          Navigator.pushNamed(
+                              context, MyRoutes.netflixSubscribed)
                         },
                         child: Padding(
                           padding: EdgeInsets.only(top: 26, bottom: 27),

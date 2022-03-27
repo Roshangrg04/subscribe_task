@@ -3,6 +3,7 @@ import 'package:subscribe_task/screens/subscribepage/Subscribe.dart';
 import 'package:subscribe_task/screens/main_page.dart';
 import 'package:subscribe_task/screens/subscribepage/netflix_subscribe.dart';
 import 'package:subscribe_task/screens/subscribepage/nflix_subscribed.dart';
+import 'package:subscribe_task/utils/routes.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,9 +18,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         "/": (context) => MainPage(),
-        "/netflixsubs": (context) => NetFlixSub(),
-        "/subspage": (context) => SubsPage(),
-        "/netflixSubscribed": (context) => NflixSubscribe()
+        MyRoutes.netflixSub: (context) => NetFlixSub(),
+        MyRoutes.subspage: (context) => SubsPage(),
+        MyRoutes.netflixSubscribed: (context) => NflixSubscribe()
       },
     );
   }
