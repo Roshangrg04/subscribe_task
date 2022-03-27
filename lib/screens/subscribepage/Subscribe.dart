@@ -137,7 +137,8 @@ class _SubsPageState extends State<SubsPage> {
                                               fontWeight: FontWeight.bold,
                                             )),
                                         Padding(
-                                          padding: EdgeInsets.only(bottom: 29),
+                                          padding: EdgeInsets.only(
+                                              left: 10, bottom: 40, right: 10),
                                           child: Text(
                                             i.desc,
                                             style: TextStyle(
