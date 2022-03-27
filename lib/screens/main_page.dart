@@ -13,7 +13,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _current_index = 0;
+  int _current_index = 2;
   List pages = [
     Home(),
     NewsPage(),
