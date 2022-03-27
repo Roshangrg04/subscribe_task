@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:percent_indicator/percent_indicator.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class NetFlixSub extends StatefulWidget {
   const NetFlixSub({Key? key}) : super(key: key);
@@ -14,16 +11,6 @@ class NetFlixSub extends StatefulWidget {
 
 class _NetFlixSubState extends State<NetFlixSub> {
   @override
-  int _current = 0;
-  List imgList = [
-    'asset/images/image4.png',
-    'asset/images/image8.png',
-    'asset/images/image7.png'
-  ];
-
-  List money = ['20.00', '48.00', '17.00'];
-  List plan = ['Netlfix Standard', 'Youtube Premium', 'Spotify'];
-
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -42,6 +29,21 @@ class _NetFlixSubState extends State<NetFlixSub> {
                         fit: BoxFit.cover)),
                 child: Column(
                   children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 39, left: 20),
+                        child: IconButton(
+                          icon: Icon(
+                            CupertinoIcons.back,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                    ),
                     Padding(
                         padding: EdgeInsets.only(top: 87, bottom: 18),
                         child: Image.asset(

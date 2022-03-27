@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -41,9 +44,12 @@ class _SubscribePageState extends State<SubscribePage> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 25),
-                    child: Icon(
-                      CupertinoIcons.back,
+                    child: IconButton(
+                      icon: Icon(CupertinoIcons.back),
                       color: Colors.white,
+                      onPressed: () {
+                        SystemNavigator.pop();
+                      },
                     ),
                   ),
                   Padding(
@@ -167,7 +173,10 @@ class _SubscribePageState extends State<SubscribePage> {
                                         Padding(
                                           padding: EdgeInsets.only(
                                               left: 12, bottom: 2.4),
-                                          child: Text("\$" + i.price.toString(),
+                                          child: Text(
+                                              "\$ " +
+                                                  i.price
+                                                      .toStringAsPrecision(2),
                                               style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold)),

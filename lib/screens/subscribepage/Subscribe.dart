@@ -40,9 +40,14 @@ class _SubsPageState extends State<SubsPage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: 39, left: 20),
-                      child: Icon(
-                        CupertinoIcons.back,
-                        color: Colors.white,
+                      child: IconButton(
+                        icon: Icon(
+                          CupertinoIcons.back,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
                     ),
                     Padding(
