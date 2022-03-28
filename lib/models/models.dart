@@ -15,3 +15,41 @@ List<DataModel> dataList = [
   DataModel('asset/images/image7.png', 17.00, 'Spotify',
       "Play Your Favorite Songs. Find New Music and See...", "")
 ];
+
+class News {
+  final String imgUrl;
+  final String title;
+  final String author_img;
+  final String source;
+  final String date;
+  News(this.imgUrl, this.title, this.author_img, this.source, this.date);
+}
+
+List<News> newsList = [
+  News(
+      'asset/images/news1.png',
+      'Parliament ratifies MCC compact after years of delay',
+      'asset/images/zeal.png',
+      'BBC',
+      '12 Jan, 2022'),
+  News(
+      'asset/images/news2.png',
+      'MCC ratified by House of Representatives, at last',
+      'asset/images/zeal.png',
+      'BBC',
+      '12 Jan, 2022')
+];
+
+class Victims {
+  final String imgurl;
+  final String type;
+  Victims(this.imgurl, this.type);
+}
+
+List<Victims> victimsList = [
+  Victims("asset/images/protectchild.png", "Protect Child"),
+  Victims("asset/images/homeless.png", "Homeless Children"),
+  Victims("asset/images/trafficking.png", "Sex Trafficking"),
+  Victims("asset/images/slavery.png", "Slavery")
+];
+
