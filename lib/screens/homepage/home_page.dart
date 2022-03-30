@@ -327,13 +327,15 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(20, 0, 20, 22),
+                    margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
                     width: double.infinity,
-                    height: 165 * victimsList.length / 2,
+                    height: 180 * victimsList.length / 2,
                     child: GridView.builder(
                         itemCount: victimsList.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, crossAxisSpacing: 20),
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 20,
+                        ),
                         itemBuilder: (BuildContext context, index) {
                           return Container(
                             height: 120,
@@ -342,7 +344,7 @@ class _HomeState extends State<Home> {
                                 image: DecorationImage(
                                     image:
                                         AssetImage(victimsList[index].imgurl),
-                                    fit: BoxFit.fitWidth)),
+                                    fit: BoxFit.contain)),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Text(

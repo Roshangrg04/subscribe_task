@@ -53,3 +53,17 @@ List<Victims> victimsList = [
   Victims("asset/images/slavery.png", "Slavery")
 ];
 
+class news1 {
+  final String url;
+  final String title;
+  news1(this.url, this.title);
+}
+
+List<news1> news1List = [
+  news1('asset/images/newsBiden.png',
+      'Biden calls for removal of normal trade relations with Russia: Updates'),
+  news1('asset/images/newsBiden.png',
+      'Biden calls for removal of normal trade relations with Russia: Updates'),
+  news1('asset/images/newsBiden.png',
+      'Biden calls for removal of normal trade relations with Russia: Updates')
+];
