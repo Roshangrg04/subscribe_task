@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:subscribe_task/screens/newspage/newspage1.dart';
 import 'package:subscribe_task/screens/subscribepage/Subscribe.dart';
 import 'package:subscribe_task/screens/main_page.dart';
 import 'package:subscribe_task/screens/subscribepage/netflix_subscribe.dart';
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
         "/": (context) => MainPage(),
         MyRoutes.netflixSub: (context) => NetFlixSub(),
         MyRoutes.subspage: (context) => SubsPage(),
-        MyRoutes.netflixSubscribed: (context) => NflixSubscribe()
+        MyRoutes.netflixSubscribed: (context) => NflixSubscribe(),
+        //MyRoutes.newsDesc: (context) => NewsDesc()
       },
     );
   }

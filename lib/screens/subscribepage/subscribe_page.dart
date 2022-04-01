@@ -20,7 +20,6 @@ class SubscribePage extends StatefulWidget {
 
 class _SubscribePageState extends State<SubscribePage> {
   @override
-  
   int _current = 0;
   int percentage = 75;
 

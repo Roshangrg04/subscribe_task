@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:subscribe_task/models/models.dart';
+import 'package:subscribe_task/models/newstab.dart';
+import 'package:subscribe_task/models/victims.dart';
 import 'package:subscribe_task/utils/routes.dart';
 
 class Home extends StatefulWidget {

@@ -41,7 +41,7 @@ class _MainPageState extends State<MainPage> {
             _current_index = index;
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: ImageIcon(
               AssetImage("asset/images/Vectorhome.png"),

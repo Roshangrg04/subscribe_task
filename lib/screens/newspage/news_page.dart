@@ -2,10 +2,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:subscribe_task/models/models.dart';
 import 'package:subscribe_task/models/newstab.dart';
+import 'package:subscribe_task/screens/newspage/newspage1.dart';
+import 'package:subscribe_task/utils/routes.dart';
 
 class NewsPage extends StatefulWidget {
   const NewsPage({Key? key}) : super(key: key);
@@ -83,13 +84,13 @@ class _NewsPageState extends State<NewsPage> with TickerProviderStateMixin {
                                           color: Colors.white)),
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Align(
                                   alignment: Alignment.bottomRight,
                                   child: IconButton(
-                                    icon: ImageIcon(
+                                    icon: const ImageIcon(
                                       AssetImage(
                                         "asset/images/Vectorplay.png",
                                       ),
@@ -104,6 +105,7 @@ class _NewsPageState extends State<NewsPage> with TickerProviderStateMixin {
                           width: double.infinity,
                           height: 207,
                           decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(21),
                               image: DecorationImage(
                                   image: AssetImage(
                                     news1List[itemIndex].url,
@@ -177,68 +179,66 @@ class _NewsPageState extends State<NewsPage> with TickerProviderStateMixin {
                                   context,
                                   index,
                                 ) {
-                                  return Row(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                            right: 7, bottom: 16),
-                                        height: 90,
-                                        width: 111,
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(21),
-                                          bottomLeft: Radius.circular(21),
-                                        )),
-                                        child: Image.asset(
-                                          popularList[index].imgurl,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      Container(
-                                          margin: EdgeInsets.only(bottom: 16),
+                                  return InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) => NewsDesc(
+                                                  newsItem:
+                                                      popularList[index])));
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              right: 7, bottom: 16),
                                           height: 90,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width -
-                                              138,
+                                          width: 111,
                                           decoration: BoxDecoration(
-                                              color: Colors.white,
                                               borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(21),
-                                                bottomRight:
-                                                    Radius.circular(21),
-                                              )),
-                                          child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                14, 10, 14, 0),
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                  popularList[index].title,
-                                                  style: GoogleFonts.roboto(
-                                                      textStyle: TextStyle(
-                                                          fontSize: 11,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          color: Colors.black)),
-                                                ),
-                                                SizedBox(
-                                                  height: 8,
-                                                ),
-                                                Text(
-                                                  popularList[index].preview,
-                                                  style: GoogleFonts.roboto(
-                                                      textStyle: TextStyle(
-                                                          fontSize: 9,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          color: Colors.black)),
-                                                ),
-                                                Align(
-                                                  alignment:
-                                                      Alignment.bottomRight,
-                                                  child: Text(
-                                                    popularList[index].time,
+                                            topLeft: Radius.circular(21),
+                                            bottomLeft: Radius.circular(21),
+                                          )),
+                                          child: Image.asset(
+                                            popularList[index].imgurl,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Container(
+                                            margin: EdgeInsets.only(bottom: 16),
+                                            height: 90,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width -
+                                                138,
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(21),
+                                                  bottomRight:
+                                                      Radius.circular(21),
+                                                )),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      14, 10, 14, 0),
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                    popularList[index].title,
+                                                    style: GoogleFonts.roboto(
+                                                        textStyle: TextStyle(
+                                                            fontSize: 11,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            color:
+                                                                Colors.black)),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 8,
+                                                  ),
+                                                  Text(
+                                                    popularList[index].preview,
                                                     style: GoogleFonts.roboto(
                                                         textStyle: TextStyle(
                                                             fontSize: 9,
@@ -247,11 +247,26 @@ class _NewsPageState extends State<NewsPage> with TickerProviderStateMixin {
                                                             color:
                                                                 Colors.black)),
                                                   ),
-                                                )
-                                              ],
-                                            ),
-                                          )),
-                                    ],
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.bottomRight,
+                                                    child: Text(
+                                                      popularList[index].time,
+                                                      style: GoogleFonts.roboto(
+                                                          textStyle: TextStyle(
+                                                              fontSize: 9,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: Colors
+                                                                  .black)),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            )),
+                                      ],
+                                    ),
                                   );
                                 }),
                           )),
