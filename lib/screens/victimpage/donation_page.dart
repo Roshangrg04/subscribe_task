@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:subscribe_task/models/victims.dart';
 import 'package:subscribe_task/screens/victimpage/components/card_builder.dart';
-import 'package:subscribe_task/screens/victimpage/components/s.dart';
+import 'package:subscribe_task/screens/victimpage/components/stacked_image.dart';
 
 class DonationPage extends StatefulWidget {
   final Victims item;
@@ -92,14 +92,17 @@ class _DonationPageState extends State<DonationPage>
                     SingleChildScrollView(
                       child: Column(
                         children: [
-                          Text(
-                            widget.item.summary,
-                            style: GoogleFonts.roboto(
-                                textStyle: const TextStyle(
-                              fontSize: 13,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w400,
-                            )),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Text(
+                              widget.item.summary,
+                              style: GoogleFonts.roboto(
+                                  textStyle: const TextStyle(
+                                fontSize: 13,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                              )),
+                            ),
                           ),
                           Align(
                             alignment: Alignment.center,
@@ -172,19 +175,18 @@ class _DonationPageState extends State<DonationPage>
                                           "\$$total/\$$target",
                                           style: GoogleFonts.roboto(
                                               textStyle: const TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             color: Colors.white,
                                             fontWeight: FontWeight.w400,
                                           )),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsets.only(left: 8, top: 8),
+                                          padding: EdgeInsets.only(left: 6),
                                           child: Text(
                                             "Raised",
                                             style: GoogleFonts.roboto(
                                                 textStyle: const TextStyle(
-                                              fontSize: 9,
+                                              fontSize: 8,
                                               color: Colors.white,
                                               fontWeight: FontWeight.w400,
                                             )),
@@ -198,10 +200,10 @@ class _DonationPageState extends State<DonationPage>
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 8),
                                           child: Text(
-                                            "$donatorsNum donated",
+                                            "+$donatorsNum donated",
                                             style: GoogleFonts.roboto(
                                                 textStyle: const TextStyle(
-                                              fontSize: 9,
+                                              fontSize: 8,
                                               color: Colors.white,
                                               fontWeight: FontWeight.w600,
                                             )),
@@ -267,6 +269,37 @@ class _DonationPageState extends State<DonationPage>
                                 for (var item in paymentOptions)
                                   buildCard(item),
                               ],
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                margin:
+                                    const EdgeInsets.only(top: 29, bottom: 18),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(21),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Color.fromARGB(255, 101, 244, 205),
+                                        Color.fromARGB(255, 90, 91, 243)
+                                      ]),
+                                ),
+                                height: 37,
+                                width: 107,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "Donate",
+                                    style: GoogleFonts.roboto(
+                                        textStyle: const TextStyle(
+                                      fontSize: 10,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    )),
+                                  ),
+                                ),
+                              ),
                             )
                           ],
                         ),
@@ -301,7 +334,7 @@ class _DonationPageState extends State<DonationPage>
         padding: EdgeInsets.all(borderSize),
         color: Colors.white,
         child: ClipOval(
-          child: Image.network(
+          child: Image.asset(
             urlImage,
             fit: BoxFit.cover,
           ),

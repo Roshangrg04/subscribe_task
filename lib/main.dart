@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:subscribe_task/screens/homepage/home_page.dart';
 import 'package:subscribe_task/screens/newspage/news_page.dart';
-import 'package:subscribe_task/screens/newspage/newspage1.dart';
+import 'package:subscribe_task/screens/profilepage/account_profile.dart';
 import 'package:subscribe_task/screens/profilepage/profile_page.dart';
 import 'package:subscribe_task/screens/subscribepage/Subscribe.dart';
 import 'package:subscribe_task/screens/subscribepage/netflix_subscribe.dart';
@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.netflixSub: (context) => NetFlixSub(),
         MyRoutes.subspage: (context) => SubsPage(),
         MyRoutes.netflixSubscribed: (context) => NflixSubscribe(),
+        MyRoutes.account: (context) => AccountPage(),
       },
     );
   }
@@ -39,7 +40,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _current_index = 1;
+  int _current_index = 4;
   List pages = [
     Home(),
     NewsPage(),

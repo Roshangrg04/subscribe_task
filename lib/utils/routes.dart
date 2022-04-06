@@ -3,4 +3,5 @@ class MyRoutes {
   static String netflixSubscribed = "/netflixsubscribed";
   static String subspage = "/subspage";
   static String newsDesc = "/newsdesc";
+  static String account = "/account";
 }
