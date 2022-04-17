@@ -6,7 +6,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:subscribe_task/models/models.dart';
 import 'package:subscribe_task/models/newstab.dart';
 import 'package:subscribe_task/screens/newspage/newspage1.dart';
-import 'package:subscribe_task/utils/routes.dart';
 
 class NewsPage extends StatefulWidget {
   const NewsPage({Key? key}) : super(key: key);

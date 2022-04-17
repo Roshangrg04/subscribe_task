@@ -1,7 +1,8 @@
-import 'dart:math';
+import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:subscribe_task/models/user.dart';
 
 class AccountPage extends StatefulWidget {
   AccountPage({
@@ -13,15 +14,16 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  String name = 'Zeal Heal';
-  String dateBS = '2049-5-11';
-  String dateAD = '1992-9-23';
-  String gender = 'Male';
-  String phonenum = '98xxxxxxx';
-  String email = 'zealheal@email.com';
-  String occupation = 'Businessman';
-  String address = 'Kathmandu,Nepal';
-  String documentType = 'Citizenship';
+  String temp = "";
+  String name = u1.name;
+  String dateBS = u1.dateBS;
+  String dateAD = u1.dateAD;
+  String gender = u1.gender;
+  String phonenum = u1.phonenum;
+  String email = u1.email;
+  String occupation = u1.occupation;
+  String address = u1.address;
+  String documentType = u1.documentType;
   bool editable = false;
   bool nameEdit = false;
   bool dobBSEdit = false;
@@ -32,6 +34,15 @@ class _AccountPageState extends State<AccountPage> {
   bool addressEdit = false;
   bool emailEdit = false;
   bool docEdit = false;
+  bool invalidName = false;
+  bool invalidDateBS = false;
+  bool invalidDateAD = false;
+  bool invalidEmail = false;
+  bool invalidGender = false;
+  bool invalidPhonenum = false;
+  bool invalidOccupation = false;
+  bool invalidAddress = false;
+  bool invalidDoctype = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -59,6 +70,7 @@ class _AccountPageState extends State<AccountPage> {
                     color: Colors.white,
                   ),
                   onPressed: () {
+                    saveChanges();
                     Navigator.pop(context);
                   },
                 ),
@@ -94,8 +106,18 @@ class _AccountPageState extends State<AccountPage> {
                         )
                       : GestureDetector(
                           onTap: () {
+                            (u1.name != name ||
+                                    u1.dateBS != dateBS ||
+                                    u1.dateAD != dateAD ||
+                                    u1.gender != gender ||
+                                    u1.phonenum != phonenum ||
+                                    u1.email != email ||
+                                    u1.occupation != occupation ||
+                                    u1.address != address ||
+                                    u1.documentType != documentType)
+                                ? saveChanges()
+                                : {};
                             setState(() {
-                              editable = !editable;
                               editable = false;
                               nameEdit = false;
                               dobBSEdit = false;
@@ -143,7 +165,16 @@ class _AccountPageState extends State<AccountPage> {
                             onTap: () {
                               editable
                                   ? setState(() {
-                                      nameEdit = !nameEdit;
+                                      nameEdit = true;
+                                      dobBSEdit = false;
+                                      dobADEdit = false;
+                                      genderEdit = false;
+                                      phonenumEdit = false;
+                                      emailEdit = false;
+                                      occupationEdit = false;
+                                      addressEdit = false;
+                                      docEdit = false;
+                                      temp = name;
                                     })
                                   : {};
                             },
@@ -151,7 +182,7 @@ class _AccountPageState extends State<AccountPage> {
                               padding:
                                   const EdgeInsets.only(top: 12, bottom: 33),
                               child: Container(
-                                height: 20,
+                                width: MediaQuery.of(context).size.width - 48,
                                 child: Text(
                                   name,
                                   style: GoogleFonts.roboto(
@@ -164,19 +195,23 @@ class _AccountPageState extends State<AccountPage> {
                               ),
                             ),
                           )
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 6, bottom: 26),
-                            child: Container(
-                              height: 30,
-                              child: TextField(
-                                style: GoogleFonts.roboto(
-                                    textStyle: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                )),
-                                textAlignVertical: TextAlignVertical.bottom,
-                                decoration: InputDecoration(
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin:
+                                    const EdgeInsets.only(top: 6, bottom: 2),
+                                height: 30,
+                                child: TextField(
+                                  autofocus: true,
+                                  style: GoogleFonts.roboto(
+                                      textStyle: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                                  textAlignVertical: TextAlignVertical.bottom,
+                                  decoration: InputDecoration(
                                     hintStyle: GoogleFonts.roboto(
                                         textStyle: const TextStyle(
                                       fontSize: 14,
@@ -185,19 +220,51 @@ class _AccountPageState extends State<AccountPage> {
                                     fillColor:
                                         Color.fromARGB(36, 255, 255, 255),
                                     filled: true,
-                                    border: InputBorder.none),
-                                onChanged: (value) {
-                                  setState(() {
-                                    name = value;
-                                  });
-                                },
-                                onSubmitted: (value) {
-                                  setState(() {
-                                    nameEdit = false;
-                                  });
-                                },
+                                    border: InputBorder.none,
+                                  ),
+                                  onSubmitted: (value) {
+                                    value.isNotEmpty
+                                        ? validateName(value)
+                                            ? setState(() {
+                                                name = value;
+                                                nameEdit = false;
+                                                invalidName = false;
+                                              })
+                                            : setState(() {
+                                                invalidName = true;
+                                              })
+                                        : setState(() {
+                                            name = temp;
+                                          });
+                                  },
+                                  onChanged: (value) {
+                                    value.isNotEmpty
+                                        ? validateName(value)
+                                            ? setState(() {
+                                                name = value;
+                                              })
+                                            : null
+                                        : setState(() {
+                                            name = temp;
+                                          });
+                                  },
+                                ),
                               ),
-                            ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 24),
+                                child: Visibility(
+                                    visible: invalidName,
+                                    child: Text(
+                                      "Invalid name",
+                                      style: GoogleFonts.roboto(
+                                          textStyle: const TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.w500,
+                                      )),
+                                    )),
+                              )
+                            ],
                           ),
                     Text(
                       "Date of Birth(B.S)",
@@ -213,13 +280,23 @@ class _AccountPageState extends State<AccountPage> {
                             onTap: () {
                               editable
                                   ? setState(() {
+                                      nameEdit = false;
                                       dobBSEdit = true;
+                                      dobADEdit = false;
+                                      genderEdit = false;
+                                      phonenumEdit = false;
+                                      emailEdit = false;
+                                      occupationEdit = false;
+                                      addressEdit = false;
+                                      docEdit = false;
+                                      temp = dateBS;
                                     })
                                   : {};
                             },
-                            child: Padding(
-                              padding:
+                            child: Container(
+                              margin:
                                   const EdgeInsets.only(top: 12, bottom: 33),
+                              width: MediaQuery.of(context).size.width - 48,
                               child: Text(
                                 dateBS,
                                 style: GoogleFonts.roboto(
@@ -236,6 +313,7 @@ class _AccountPageState extends State<AccountPage> {
                             child: Container(
                               height: 30,
                               child: TextField(
+                                autofocus: true,
                                 textAlignVertical: TextAlignVertical.bottom,
                                 style: GoogleFonts.roboto(
                                     textStyle: const TextStyle(
@@ -253,13 +331,25 @@ class _AccountPageState extends State<AccountPage> {
                                         Color.fromARGB(36, 255, 255, 255),
                                     filled: true,
                                     border: InputBorder.none),
-                                onChanged: (value) {
-                                  dateBS = value;
-                                },
                                 onSubmitted: (value) {
-                                  setState(() {
-                                    dobBSEdit = true;
-                                  });
+                                  value.isNotEmpty
+                                      ? setState(() {
+                                          dateBS = value;
+
+                                          dobBSEdit = false;
+                                        })
+                                      : setState(() {
+                                          dobBSEdit = false;
+                                        });
+                                },
+                                onChanged: (value) {
+                                  value.isNotEmpty
+                                      ? setState(() {
+                                          dateBS = value;
+                                        })
+                                      : setState(() {
+                                          dateBS = temp;
+                                        });
                                 },
                               ),
                             ),
@@ -278,13 +368,23 @@ class _AccountPageState extends State<AccountPage> {
                             onTap: () {
                               editable
                                   ? setState(() {
+                                      nameEdit = false;
+                                      dobBSEdit = false;
                                       dobADEdit = true;
+                                      genderEdit = false;
+                                      phonenumEdit = false;
+                                      emailEdit = false;
+                                      occupationEdit = false;
+                                      addressEdit = false;
+                                      docEdit = false;
+                                      temp = dateAD;
                                     })
                                   : {};
                             },
-                            child: Padding(
-                              padding:
+                            child: Container(
+                              margin:
                                   const EdgeInsets.only(top: 12, bottom: 33),
+                              width: MediaQuery.of(context).size.width - 48,
                               child: Text(
                                 dateAD,
                                 style: GoogleFonts.roboto(
@@ -301,6 +401,7 @@ class _AccountPageState extends State<AccountPage> {
                             child: Container(
                               height: 30,
                               child: TextField(
+                                autofocus: true,
                                 textAlignVertical: TextAlignVertical.bottom,
                                 style: GoogleFonts.roboto(
                                     textStyle: const TextStyle(
@@ -318,15 +419,25 @@ class _AccountPageState extends State<AccountPage> {
                                         Color.fromARGB(36, 255, 255, 255),
                                     filled: true,
                                     border: InputBorder.none),
-                                onChanged: (value) {
-                                  setState(() {
-                                    dateAD = value;
-                                  });
-                                },
                                 onSubmitted: (value) {
-                                  setState(() {
-                                    dobADEdit = false;
-                                  });
+                                  value.isNotEmpty
+                                      ? setState(() {
+                                          dateAD = value;
+
+                                          dobADEdit = false;
+                                        })
+                                      : setState(() {
+                                          dobADEdit = false;
+                                        });
+                                },
+                                onChanged: (value) {
+                                  value.isNotEmpty
+                                      ? setState(() {
+                                          dateAD = value;
+                                        })
+                                      : setState(() {
+                                          dateAD = temp;
+                                        });
                                 },
                               ),
                             ),
@@ -346,14 +457,24 @@ class _AccountPageState extends State<AccountPage> {
                               editable
                                   ? setState(() {
                                       setState(() {
+                                        nameEdit = false;
+                                        dobBSEdit = false;
+                                        dobADEdit = false;
                                         genderEdit = true;
+                                        phonenumEdit = false;
+                                        emailEdit = false;
+                                        occupationEdit = false;
+                                        addressEdit = false;
+                                        docEdit = false;
+                                        temp = gender;
                                       });
                                     })
                                   : {};
                             },
-                            child: Padding(
-                              padding:
+                            child: Container(
+                              margin:
                                   const EdgeInsets.only(top: 12, bottom: 33),
+                              width: MediaQuery.of(context).size.width - 48,
                               child: Text(
                                 gender,
                                 style: GoogleFonts.roboto(
@@ -370,34 +491,43 @@ class _AccountPageState extends State<AccountPage> {
                             child: Container(
                               height: 30,
                               child: TextField(
-                                textAlignVertical: TextAlignVertical.bottom,
-                                style: GoogleFonts.roboto(
-                                    textStyle: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                )),
-                                decoration: InputDecoration(
-                                    hintStyle: GoogleFonts.roboto(
-                                        textStyle: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    )),
-                                    fillColor:
-                                        Color.fromARGB(36, 255, 255, 255),
-                                    filled: true,
-                                    border: InputBorder.none),
-                                onChanged: (value) {
-                                  setState(() {
-                                    gender = value;
-                                  });
-                                },
-                                onSubmitted: (value) {
-                                  setState(() {
-                                    genderEdit = false;
-                                  });
-                                },
-                              ),
+                                  autofocus: true,
+                                  textAlignVertical: TextAlignVertical.bottom,
+                                  style: GoogleFonts.roboto(
+                                      textStyle: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                                  decoration: InputDecoration(
+                                      hintStyle: GoogleFonts.roboto(
+                                          textStyle: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      )),
+                                      fillColor:
+                                          Color.fromARGB(36, 255, 255, 255),
+                                      filled: true,
+                                      border: InputBorder.none),
+                                  onSubmitted: (value) {
+                                    value.isNotEmpty
+                                        ? setState(() {
+                                            gender = value;
+                                            genderEdit = false;
+                                          })
+                                        : setState(() {
+                                            genderEdit = false;
+                                          });
+                                  },
+                                  onChanged: (value) {
+                                    value.isNotEmpty
+                                        ? setState(() {
+                                            gender = value;
+                                          })
+                                        : setState(() {
+                                            gender = temp;
+                                          });
+                                  }),
                             ),
                           ),
                     Text(
@@ -414,13 +544,23 @@ class _AccountPageState extends State<AccountPage> {
                             onTap: () {
                               editable
                                   ? setState(() {
+                                      nameEdit = false;
+                                      dobBSEdit = false;
+                                      dobADEdit = false;
+                                      genderEdit = false;
                                       phonenumEdit = true;
+                                      emailEdit = false;
+                                      occupationEdit = false;
+                                      addressEdit = false;
+                                      docEdit = false;
+                                      temp = phonenum;
                                     })
                                   : {};
                             },
-                            child: Padding(
-                              padding:
+                            child: Container(
+                              margin:
                                   const EdgeInsets.only(top: 12, bottom: 33),
+                              width: MediaQuery.of(context).size.width - 48,
                               child: Text(
                                 phonenum,
                                 style: GoogleFonts.roboto(
@@ -437,6 +577,7 @@ class _AccountPageState extends State<AccountPage> {
                             child: Container(
                               height: 30,
                               child: TextField(
+                                autofocus: true,
                                 textAlignVertical: TextAlignVertical.bottom,
                                 style: GoogleFonts.roboto(
                                     textStyle: const TextStyle(
@@ -454,15 +595,25 @@ class _AccountPageState extends State<AccountPage> {
                                         Color.fromARGB(36, 255, 255, 255),
                                     filled: true,
                                     border: InputBorder.none),
-                                onChanged: (value) {
-                                  setState(() {
-                                    phonenum = value;
-                                  });
-                                },
                                 onSubmitted: (value) {
-                                  setState(() {
-                                    phonenumEdit = false;
-                                  });
+                                  value.isNotEmpty
+                                      ? setState(() {
+                                          phonenum = value;
+
+                                          phonenumEdit = false;
+                                        })
+                                      : setState(() {
+                                          phonenumEdit = false;
+                                        });
+                                },
+                                onChanged: (value) {
+                                  value.isNotEmpty
+                                      ? setState(() {
+                                          phonenum = value;
+                                        })
+                                      : setState(() {
+                                          phonenum = temp;
+                                        });
                                 },
                               ),
                             ),
@@ -479,11 +630,25 @@ class _AccountPageState extends State<AccountPage> {
                     !emailEdit
                         ? GestureDetector(
                             onTap: () {
-                              emailEdit ? setState(() {}) : {};
+                              editable
+                                  ? setState(() {
+                                      nameEdit = false;
+                                      dobBSEdit = false;
+                                      dobADEdit = false;
+                                      genderEdit = false;
+                                      phonenumEdit = false;
+                                      emailEdit = true;
+                                      occupationEdit = false;
+                                      addressEdit = false;
+                                      docEdit = false;
+                                      temp = email;
+                                    })
+                                  : {};
                             },
-                            child: Padding(
-                              padding:
+                            child: Container(
+                              margin:
                                   const EdgeInsets.only(top: 12, bottom: 33),
+                              width: MediaQuery.of(context).size.width - 48,
                               child: Text(
                                 email,
                                 style: GoogleFonts.roboto(
@@ -500,6 +665,7 @@ class _AccountPageState extends State<AccountPage> {
                             child: Container(
                               height: 30,
                               child: TextField(
+                                autofocus: true,
                                 textAlignVertical: TextAlignVertical.bottom,
                                 style: GoogleFonts.roboto(
                                     textStyle: const TextStyle(
@@ -517,15 +683,24 @@ class _AccountPageState extends State<AccountPage> {
                                         Color.fromARGB(36, 255, 255, 255),
                                     filled: true,
                                     border: InputBorder.none),
-                                onChanged: (value) {
-                                  setState(() {
-                                    email = value;
-                                  });
-                                },
                                 onSubmitted: (value) {
-                                  setState(() {
-                                    emailEdit = false;
-                                  });
+                                  value.isNotEmpty
+                                      ? setState(() {
+                                          email = value;
+                                          emailEdit = false;
+                                        })
+                                      : setState(() {
+                                          emailEdit = false;
+                                        });
+                                },
+                                onChanged: (value) {
+                                  value.isNotEmpty
+                                      ? setState(() {
+                                          email = value;
+                                        })
+                                      : setState(() {
+                                          email = temp;
+                                        });
                                 },
                               ),
                             ),
@@ -544,13 +719,23 @@ class _AccountPageState extends State<AccountPage> {
                             onTap: () {
                               editable
                                   ? setState(() {
+                                      nameEdit = false;
+                                      dobBSEdit = false;
+                                      dobADEdit = false;
+                                      genderEdit = false;
+                                      phonenumEdit = false;
+                                      emailEdit = false;
                                       occupationEdit = true;
+                                      addressEdit = false;
+                                      docEdit = false;
+                                      temp = occupation;
                                     })
                                   : {};
                             },
-                            child: Padding(
-                              padding:
+                            child: Container(
+                              margin:
                                   const EdgeInsets.only(top: 12, bottom: 33),
+                              width: MediaQuery.of(context).size.width - 48,
                               child: Text(
                                 occupation,
                                 style: GoogleFonts.roboto(
@@ -567,32 +752,44 @@ class _AccountPageState extends State<AccountPage> {
                             child: Container(
                               height: 30,
                               child: TextField(
-                                textAlignVertical: TextAlignVertical.bottom,
-                                style: GoogleFonts.roboto(
-                                    textStyle: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                )),
-                                decoration: InputDecoration(
-                                    hintStyle: GoogleFonts.roboto(
-                                        textStyle: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    )),
-                                    fillColor:
-                                        Color.fromARGB(36, 255, 255, 255),
-                                    filled: true,
-                                    border: InputBorder.none),
-                                onChanged: (value) {
-                                  setState(() {
-                                    occupation = value;
-                                  });
-                                },
-                                onSubmitted: (value) {
-                                  occupationEdit = false;
-                                },
-                              ),
+                                  autofocus: true,
+                                  textAlignVertical: TextAlignVertical.bottom,
+                                  style: GoogleFonts.roboto(
+                                      textStyle: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                                  decoration: InputDecoration(
+                                      hintStyle: GoogleFonts.roboto(
+                                          textStyle: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      )),
+                                      fillColor:
+                                          Color.fromARGB(36, 255, 255, 255),
+                                      filled: true,
+                                      border: InputBorder.none),
+                                  onSubmitted: (value) {
+                                    value.isNotEmpty
+                                        ? setState(() {
+                                            occupation = value;
+
+                                            occupationEdit = false;
+                                          })
+                                        : setState(() {
+                                            occupationEdit = false;
+                                          });
+                                  },
+                                  onChanged: (value) {
+                                    value.isNotEmpty
+                                        ? setState(() {
+                                            occupation = value;
+                                          })
+                                        : setState(() {
+                                            occupation = temp;
+                                          });
+                                  }),
                             ),
                           ),
                     Text(
@@ -609,13 +806,23 @@ class _AccountPageState extends State<AccountPage> {
                             onTap: () {
                               editable
                                   ? setState(() {
+                                      nameEdit = false;
+                                      dobBSEdit = false;
+                                      dobADEdit = false;
+                                      genderEdit = false;
+                                      phonenumEdit = false;
+                                      emailEdit = false;
+                                      occupationEdit = false;
                                       addressEdit = true;
+                                      docEdit = false;
+                                      temp = address;
                                     })
                                   : {};
                             },
-                            child: Padding(
-                              padding:
+                            child: Container(
+                              margin:
                                   const EdgeInsets.only(top: 12, bottom: 33),
+                              width: MediaQuery.of(context).size.width - 48,
                               child: Text(
                                 address,
                                 style: GoogleFonts.roboto(
@@ -632,6 +839,7 @@ class _AccountPageState extends State<AccountPage> {
                             child: Container(
                               height: 30,
                               child: TextField(
+                                autofocus: true,
                                 textAlignVertical: TextAlignVertical.bottom,
                                 style: GoogleFonts.roboto(
                                     textStyle: const TextStyle(
@@ -649,13 +857,25 @@ class _AccountPageState extends State<AccountPage> {
                                         Color.fromARGB(36, 255, 255, 255),
                                     filled: true,
                                     border: InputBorder.none),
-                                onChanged: (value) {
-                                  setState(() {
-                                    address = value;
-                                  });
-                                },
                                 onSubmitted: (value) {
-                                  addressEdit = false;
+                                  value.isNotEmpty
+                                      ? setState(() {
+                                          address = value;
+
+                                          addressEdit = false;
+                                        })
+                                      : setState(() {
+                                          addressEdit = false;
+                                        });
+                                },
+                                onChanged: (value) {
+                                  value.isNotEmpty
+                                      ? setState(() {
+                                          address = value;
+                                        })
+                                      : setState(() {
+                                          address = temp;
+                                        });
                                 },
                               ),
                             ),
@@ -674,13 +894,23 @@ class _AccountPageState extends State<AccountPage> {
                             onTap: () {
                               editable
                                   ? setState(() {
+                                      nameEdit = false;
+                                      dobBSEdit = false;
+                                      dobADEdit = false;
+                                      genderEdit = false;
+                                      phonenumEdit = false;
+                                      emailEdit = false;
+                                      occupationEdit = false;
+                                      addressEdit = false;
                                       docEdit = true;
+                                      temp = documentType;
                                     })
                                   : {};
                             },
-                            child: Padding(
-                              padding:
+                            child: Container(
+                              margin:
                                   const EdgeInsets.only(top: 12, bottom: 33),
+                              width: MediaQuery.of(context).size.width - 48,
                               child: Text(
                                 documentType,
                                 style: GoogleFonts.roboto(
@@ -697,6 +927,7 @@ class _AccountPageState extends State<AccountPage> {
                             child: Container(
                               height: 30,
                               child: TextField(
+                                autofocus: true,
                                 textAlignVertical: TextAlignVertical.bottom,
                                 style: GoogleFonts.roboto(
                                     textStyle: const TextStyle(
@@ -714,15 +945,25 @@ class _AccountPageState extends State<AccountPage> {
                                         Color.fromARGB(36, 255, 255, 255),
                                     filled: true,
                                     border: InputBorder.none),
-                                onChanged: (value) {
-                                  setState(() {
-                                    documentType = value;
-                                  });
-                                },
                                 onSubmitted: (value) {
-                                  setState(() {
-                                    docEdit = false;
-                                  });
+                                  value.isNotEmpty
+                                      ? setState(() {
+                                          documentType = value;
+
+                                          docEdit = false;
+                                        })
+                                      : setState(() {
+                                          docEdit = false;
+                                        });
+                                },
+                                onChanged: (value) {
+                                  value.isNotEmpty
+                                      ? setState(() {
+                                          documentType = value;
+                                        })
+                                      : setState(() {
+                                          documentType = temp;
+                                        });
                                 },
                               ),
                             ),
@@ -735,5 +976,52 @@ class _AccountPageState extends State<AccountPage> {
         ),
       ),
     ));
+  }
+
+  Future saveChanges() {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Save changes?"),
+        actions: [
+          TextButton(
+              onPressed: () {
+                setState(() {
+                  u1.name = name;
+                  u1.dateBS = dateBS;
+                  u1.dateAD = dateAD;
+                  u1.gender = gender;
+                  u1.phonenum = phonenum;
+                  u1.email = email;
+                  u1.occupation = occupation;
+                  u1.documentType = u1.documentType;
+                });
+                Navigator.of(context).pop();
+              },
+              child: Text("Yes")),
+          TextButton(
+              onPressed: () {
+                setState(() {
+                  name = u1.name;
+                  dateBS = u1.dateBS;
+                  dateAD = u1.dateAD;
+                  gender = u1.gender;
+                  phonenum = u1.phonenum;
+                  email = u1.email;
+                  occupation = u1.occupation;
+                  address = u1.address;
+                  documentType = u1.documentType;
+                });
+                Navigator.of(context).pop();
+              },
+              child: Text("No"))
+        ],
+      ),
+    );
+  }
+
+  bool validateName(String uname) {
+    RegExp name = RegExp(r'^[A-Z]+$', caseSensitive: false);
+    return name.hasMatch(uname) ? true : false;
   }
 }

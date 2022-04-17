@@ -7,9 +7,7 @@ import 'package:like_button/like_button.dart';
 class NewsDesc extends StatefulWidget {
   final PopularNews newsItem;
 
-  const NewsDesc({Key? key, required this.newsItem})
-      : assert(newsItem != null),
-        super(key: key);
+  const NewsDesc({Key? key, required this.newsItem}) : super(key: key);
 
   @override
   State<NewsDesc> createState() => _NewsDescState();

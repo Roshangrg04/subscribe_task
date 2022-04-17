@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class StackedWidgets extends StatelessWidget {
-  final List<Widget> items;
   final TextDirection direction;
+  final List<Widget> items;
   final double size;
   final double xShift;
 
