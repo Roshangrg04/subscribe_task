@@ -39,6 +39,7 @@ dependencies:
   carousel_slider: ^4.0.0
   smooth_page_indicator: ^1.0.0+2
   like_button: ^2.0.4
+  email_validator: '^1.0.6'
   
 
 dev_dependencies:

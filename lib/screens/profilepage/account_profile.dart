@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'package:email_validator/email_validator.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,7 +28,6 @@ class _AccountPageState extends State<AccountPage> {
   bool nameEdit = false;
   bool dobBSEdit = false;
   bool dobADEdit = false;
-  bool genderEdit = false;
   bool phonenumEdit = false;
   bool occupationEdit = false;
   bool addressEdit = false;
@@ -43,6 +42,16 @@ class _AccountPageState extends State<AccountPage> {
   bool invalidOccupation = false;
   bool invalidAddress = false;
   bool invalidDoctype = false;
+  bool otherGender = false;
+  List<String> genderList = [
+    "Male",
+    "Female",
+    "Non-binary",
+    "Transgender",
+    "Intersex",
+    "Others(Specify)"
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -122,12 +131,13 @@ class _AccountPageState extends State<AccountPage> {
                               nameEdit = false;
                               dobBSEdit = false;
                               dobADEdit = false;
-                              genderEdit = false;
+
                               phonenumEdit = false;
                               occupationEdit = false;
                               addressEdit = false;
                               emailEdit = false;
                               docEdit = false;
+                              otherGender = false;
                             });
                           },
                           child: Text(
@@ -168,13 +178,14 @@ class _AccountPageState extends State<AccountPage> {
                                       nameEdit = true;
                                       dobBSEdit = false;
                                       dobADEdit = false;
-                                      genderEdit = false;
+
                                       phonenumEdit = false;
                                       emailEdit = false;
                                       occupationEdit = false;
                                       addressEdit = false;
                                       docEdit = false;
                                       temp = name;
+                                      otherGender = false;
                                     })
                                   : {};
                             },
@@ -242,8 +253,11 @@ class _AccountPageState extends State<AccountPage> {
                                         ? validateName(value)
                                             ? setState(() {
                                                 name = value;
+                                                invalidName = false;
                                               })
-                                            : null
+                                            : setState(() {
+                                                invalidName = true;
+                                              })
                                         : setState(() {
                                             name = temp;
                                           });
@@ -283,13 +297,14 @@ class _AccountPageState extends State<AccountPage> {
                                       nameEdit = false;
                                       dobBSEdit = true;
                                       dobADEdit = false;
-                                      genderEdit = false;
+
                                       phonenumEdit = false;
                                       emailEdit = false;
                                       occupationEdit = false;
                                       addressEdit = false;
                                       docEdit = false;
                                       temp = dateBS;
+                                      otherGender = false;
                                     })
                                   : {};
                             },
@@ -371,13 +386,14 @@ class _AccountPageState extends State<AccountPage> {
                                       nameEdit = false;
                                       dobBSEdit = false;
                                       dobADEdit = true;
-                                      genderEdit = false;
+
                                       phonenumEdit = false;
                                       emailEdit = false;
                                       occupationEdit = false;
                                       addressEdit = false;
                                       docEdit = false;
                                       temp = dateAD;
+                                      otherGender = false;
                                     })
                                   : {};
                             },
@@ -451,85 +467,114 @@ class _AccountPageState extends State<AccountPage> {
                         fontWeight: FontWeight.w300,
                       )),
                     ),
-                    !genderEdit
-                        ? GestureDetector(
-                            onTap: () {
-                              editable
-                                  ? setState(() {
-                                      setState(() {
-                                        nameEdit = false;
-                                        dobBSEdit = false;
-                                        dobADEdit = false;
-                                        genderEdit = true;
-                                        phonenumEdit = false;
-                                        emailEdit = false;
-                                        occupationEdit = false;
-                                        addressEdit = false;
-                                        docEdit = false;
-                                        temp = gender;
-                                      });
-                                    })
-                                  : {};
-                            },
-                            child: Container(
-                              margin:
-                                  const EdgeInsets.only(top: 12, bottom: 33),
-                              width: MediaQuery.of(context).size.width - 48,
-                              child: Text(
-                                gender,
-                                style: GoogleFonts.roboto(
-                                    textStyle: const TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                )),
-                              ),
+                    !editable
+                        ? Container(
+                            margin: const EdgeInsets.only(top: 12, bottom: 33),
+                            width: MediaQuery.of(context).size.width - 48,
+                            child: Text(
+                              gender,
+                              style: GoogleFonts.roboto(
+                                  textStyle: const TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              )),
                             ),
                           )
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 6, bottom: 26),
-                            child: Container(
-                              height: 30,
-                              child: TextField(
-                                  autofocus: true,
-                                  textAlignVertical: TextAlignVertical.bottom,
-                                  style: GoogleFonts.roboto(
-                                      textStyle: const TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  )),
-                                  decoration: InputDecoration(
-                                      hintStyle: GoogleFonts.roboto(
-                                          textStyle: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                      )),
-                                      fillColor:
-                                          Color.fromARGB(36, 255, 255, 255),
-                                      filled: true,
-                                      border: InputBorder.none),
-                                  onSubmitted: (value) {
-                                    value.isNotEmpty
-                                        ? setState(() {
-                                            gender = value;
-                                            genderEdit = false;
-                                          })
-                                        : setState(() {
-                                            genderEdit = false;
-                                          });
-                                  },
-                                  onChanged: (value) {
-                                    value.isNotEmpty
-                                        ? setState(() {
-                                            gender = value;
-                                          })
-                                        : setState(() {
-                                            gender = temp;
-                                          });
-                                  }),
-                            ),
-                          ),
+                        : !otherGender
+                            ? GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    setState(() {
+                                      nameEdit = false;
+                                      dobBSEdit = false;
+                                      dobADEdit = false;
+                                      phonenumEdit = false;
+                                      emailEdit = false;
+                                      occupationEdit = false;
+                                      addressEdit = false;
+                                      docEdit = false;
+                                      temp = gender;
+                                    });
+                                  });
+                                },
+                                child: Container(
+                                  height: 18,
+                                  margin: const EdgeInsets.only(
+                                      top: 12, bottom: 33),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton<String>(
+                                        iconEnabledColor: Colors.blueAccent,
+                                        hint: Text(
+                                          gender,
+                                          style: GoogleFonts.roboto(
+                                              textStyle: const TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                          )),
+                                        ),
+                                        dropdownColor: Colors.black,
+                                        items: genderList
+                                            .map(buildMenuItems)
+                                            .toList(),
+                                        onChanged: (value) {
+                                          value == "Others(Specify)"
+                                              ? setState(() {
+                                                  otherGender = true;
+                                                })
+                                              : setState(() {
+                                                  gender = value.toString();
+                                                });
+                                        }),
+                                  ),
+                                ),
+                              )
+                            : Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 6, bottom: 26),
+                                child: Container(
+                                  height: 30,
+                                  child: TextField(
+                                    autofocus: true,
+                                    textAlignVertical: TextAlignVertical.bottom,
+                                    style: GoogleFonts.roboto(
+                                        textStyle: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    )),
+                                    decoration: InputDecoration(
+                                        hintStyle: GoogleFonts.roboto(
+                                            textStyle: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        )),
+                                        fillColor:
+                                            Color.fromARGB(36, 255, 255, 255),
+                                        filled: true,
+                                        border: InputBorder.none),
+                                    onSubmitted: (value) {
+                                      value.isNotEmpty
+                                          ? setState(() {
+                                              gender = value;
+
+                                              otherGender = false;
+                                            })
+                                          : null;
+                                    },
+                                    onChanged: (value) {
+                                      value.isNotEmpty
+                                          ? setState(() {
+                                              gender = value;
+                                            })
+                                          : setState(() {
+                                              gender = temp;
+                                            });
+                                    },
+                                  ),
+                                ),
+                              ),
                     Text(
                       "Phone Number",
                       style: GoogleFonts.roboto(
@@ -547,13 +592,13 @@ class _AccountPageState extends State<AccountPage> {
                                       nameEdit = false;
                                       dobBSEdit = false;
                                       dobADEdit = false;
-                                      genderEdit = false;
                                       phonenumEdit = true;
                                       emailEdit = false;
                                       occupationEdit = false;
                                       addressEdit = false;
                                       docEdit = false;
                                       temp = phonenum;
+                                      otherGender = false;
                                     })
                                   : {};
                             },
@@ -572,186 +617,14 @@ class _AccountPageState extends State<AccountPage> {
                               ),
                             ),
                           )
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 6, bottom: 26),
-                            child: Container(
-                              height: 30,
-                              child: TextField(
-                                autofocus: true,
-                                textAlignVertical: TextAlignVertical.bottom,
-                                style: GoogleFonts.roboto(
-                                    textStyle: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                )),
-                                decoration: InputDecoration(
-                                    hintStyle: GoogleFonts.roboto(
-                                        textStyle: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    )),
-                                    fillColor:
-                                        Color.fromARGB(36, 255, 255, 255),
-                                    filled: true,
-                                    border: InputBorder.none),
-                                onSubmitted: (value) {
-                                  value.isNotEmpty
-                                      ? setState(() {
-                                          phonenum = value;
-
-                                          phonenumEdit = false;
-                                        })
-                                      : setState(() {
-                                          phonenumEdit = false;
-                                        });
-                                },
-                                onChanged: (value) {
-                                  value.isNotEmpty
-                                      ? setState(() {
-                                          phonenum = value;
-                                        })
-                                      : setState(() {
-                                          phonenum = temp;
-                                        });
-                                },
-                              ),
-                            ),
-                          ),
-                    Text(
-                      "Email",
-                      style: GoogleFonts.roboto(
-                          textStyle: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300,
-                      )),
-                    ),
-                    !emailEdit
-                        ? GestureDetector(
-                            onTap: () {
-                              editable
-                                  ? setState(() {
-                                      nameEdit = false;
-                                      dobBSEdit = false;
-                                      dobADEdit = false;
-                                      genderEdit = false;
-                                      phonenumEdit = false;
-                                      emailEdit = true;
-                                      occupationEdit = false;
-                                      addressEdit = false;
-                                      docEdit = false;
-                                      temp = email;
-                                    })
-                                  : {};
-                            },
-                            child: Container(
-                              margin:
-                                  const EdgeInsets.only(top: 12, bottom: 33),
-                              width: MediaQuery.of(context).size.width - 48,
-                              child: Text(
-                                email,
-                                style: GoogleFonts.roboto(
-                                    textStyle: const TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                )),
-                              ),
-                            ),
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 6, bottom: 26),
-                            child: Container(
-                              height: 30,
-                              child: TextField(
-                                autofocus: true,
-                                textAlignVertical: TextAlignVertical.bottom,
-                                style: GoogleFonts.roboto(
-                                    textStyle: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                )),
-                                decoration: InputDecoration(
-                                    hintStyle: GoogleFonts.roboto(
-                                        textStyle: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    )),
-                                    fillColor:
-                                        Color.fromARGB(36, 255, 255, 255),
-                                    filled: true,
-                                    border: InputBorder.none),
-                                onSubmitted: (value) {
-                                  value.isNotEmpty
-                                      ? setState(() {
-                                          email = value;
-                                          emailEdit = false;
-                                        })
-                                      : setState(() {
-                                          emailEdit = false;
-                                        });
-                                },
-                                onChanged: (value) {
-                                  value.isNotEmpty
-                                      ? setState(() {
-                                          email = value;
-                                        })
-                                      : setState(() {
-                                          email = temp;
-                                        });
-                                },
-                              ),
-                            ),
-                          ),
-                    Text(
-                      "Occupation",
-                      style: GoogleFonts.roboto(
-                          textStyle: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300,
-                      )),
-                    ),
-                    !occupationEdit
-                        ? GestureDetector(
-                            onTap: () {
-                              editable
-                                  ? setState(() {
-                                      nameEdit = false;
-                                      dobBSEdit = false;
-                                      dobADEdit = false;
-                                      genderEdit = false;
-                                      phonenumEdit = false;
-                                      emailEdit = false;
-                                      occupationEdit = true;
-                                      addressEdit = false;
-                                      docEdit = false;
-                                      temp = occupation;
-                                    })
-                                  : {};
-                            },
-                            child: Container(
-                              margin:
-                                  const EdgeInsets.only(top: 12, bottom: 33),
-                              width: MediaQuery.of(context).size.width - 48,
-                              child: Text(
-                                occupation,
-                                style: GoogleFonts.roboto(
-                                    textStyle: const TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                )),
-                              ),
-                            ),
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 6, bottom: 26),
-                            child: Container(
-                              height: 30,
-                              child: TextField(
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin:
+                                    const EdgeInsets.only(top: 6, bottom: 2),
+                                height: 30,
+                                child: TextField(
                                   autofocus: true,
                                   textAlignVertical: TextAlignVertical.bottom,
                                   style: GoogleFonts.roboto(
@@ -772,25 +645,282 @@ class _AccountPageState extends State<AccountPage> {
                                       border: InputBorder.none),
                                   onSubmitted: (value) {
                                     value.isNotEmpty
-                                        ? setState(() {
-                                            occupation = value;
-
-                                            occupationEdit = false;
-                                          })
+                                        ? validatePhonenum(value)
+                                            ? setState(() {
+                                                phonenum = value;
+                                                invalidPhonenum = false;
+                                                phonenumEdit = false;
+                                              })
+                                            : setState(() {
+                                                invalidPhonenum = true;
+                                              })
                                         : setState(() {
-                                            occupationEdit = false;
+                                            phonenumEdit = false;
                                           });
                                   },
                                   onChanged: (value) {
                                     value.isNotEmpty
-                                        ? setState(() {
-                                            occupation = value;
-                                          })
+                                        ? validatePhonenum(value)
+                                            ? setState(() {
+                                                phonenum = value;
+                                                invalidPhonenum = false;
+                                              })
+                                            : setState(() {
+                                                invalidPhonenum = true;
+                                              })
                                         : setState(() {
-                                            occupation = temp;
+                                            phonenum = temp;
                                           });
-                                  }),
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 24),
+                                child: Visibility(
+                                    visible: invalidPhonenum,
+                                    child: Text(
+                                      "Invalid phone number",
+                                      style: GoogleFonts.roboto(
+                                          textStyle: const TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.w500,
+                                      )),
+                                    )),
+                              )
+                            ],
+                          ),
+                    Text(
+                      "Email",
+                      style: GoogleFonts.roboto(
+                          textStyle: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w300,
+                      )),
+                    ),
+                    !emailEdit
+                        ? GestureDetector(
+                            onTap: () {
+                              editable
+                                  ? setState(() {
+                                      nameEdit = false;
+                                      dobBSEdit = false;
+                                      dobADEdit = false;
+
+                                      phonenumEdit = false;
+                                      emailEdit = true;
+                                      occupationEdit = false;
+                                      addressEdit = false;
+                                      docEdit = false;
+                                      temp = email;
+                                      otherGender = false;
+                                    })
+                                  : {};
+                            },
+                            child: Container(
+                              margin:
+                                  const EdgeInsets.only(top: 12, bottom: 33),
+                              width: MediaQuery.of(context).size.width - 48,
+                              child: Text(
+                                email,
+                                style: GoogleFonts.roboto(
+                                    textStyle: const TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                )),
+                              ),
                             ),
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin:
+                                    const EdgeInsets.only(top: 6, bottom: 26),
+                                height: 30,
+                                child: TextField(
+                                  autofocus: true,
+                                  textAlignVertical: TextAlignVertical.bottom,
+                                  style: GoogleFonts.roboto(
+                                      textStyle: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                                  decoration: InputDecoration(
+                                      hintStyle: GoogleFonts.roboto(
+                                          textStyle: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      )),
+                                      fillColor:
+                                          Color.fromARGB(36, 255, 255, 255),
+                                      filled: true,
+                                      border: InputBorder.none),
+                                  onSubmitted: (value) {
+                                    value.isNotEmpty
+                                        ? EmailValidator.validate(value)
+                                            ? setState(() {
+                                                email = value;
+                                                invalidEmail = false;
+                                                emailEdit = false;
+                                              })
+                                            : setState(() {
+                                                invalidEmail = true;
+                                              })
+                                        : setState(() {
+                                            emailEdit = false;
+                                          });
+                                  },
+                                  onChanged: (value) {
+                                    value.isNotEmpty
+                                        ? EmailValidator.validate(value)
+                                            ? setState(() {
+                                                email = value;
+                                                invalidEmail = false;
+                                              })
+                                            : setState(() {
+                                                invalidEmail = true;
+                                              })
+                                        : setState(() {
+                                            email = temp;
+                                          });
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 24),
+                                child: Visibility(
+                                    visible: invalidEmail,
+                                    child: Text(
+                                      "Invalid email",
+                                      style: GoogleFonts.roboto(
+                                          textStyle: const TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.w500,
+                                      )),
+                                    )),
+                              )
+                            ],
+                          ),
+                    Text(
+                      "Occupation",
+                      style: GoogleFonts.roboto(
+                          textStyle: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w300,
+                      )),
+                    ),
+                    !occupationEdit
+                        ? GestureDetector(
+                            onTap: () {
+                              editable
+                                  ? setState(() {
+                                      nameEdit = false;
+                                      dobBSEdit = false;
+                                      dobADEdit = false;
+
+                                      phonenumEdit = false;
+                                      emailEdit = false;
+                                      occupationEdit = true;
+                                      addressEdit = false;
+                                      docEdit = false;
+                                      temp = occupation;
+                                      otherGender = false;
+                                    })
+                                  : {};
+                            },
+                            child: Container(
+                              margin:
+                                  const EdgeInsets.only(top: 12, bottom: 33),
+                              width: MediaQuery.of(context).size.width - 48,
+                              child: Text(
+                                occupation,
+                                style: GoogleFonts.roboto(
+                                    textStyle: const TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                )),
+                              ),
+                            ),
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin:
+                                    const EdgeInsets.only(top: 6, bottom: 26),
+                                height: 30,
+                                child: TextField(
+                                    autofocus: true,
+                                    textAlignVertical: TextAlignVertical.bottom,
+                                    style: GoogleFonts.roboto(
+                                        textStyle: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    )),
+                                    decoration: InputDecoration(
+                                        hintStyle: GoogleFonts.roboto(
+                                            textStyle: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        )),
+                                        fillColor:
+                                            Color.fromARGB(36, 255, 255, 255),
+                                        filled: true,
+                                        border: InputBorder.none),
+                                    onSubmitted: (value) {
+                                      value.isNotEmpty
+                                          ? validateOccupation(value)
+                                              ? setState(() {
+                                                  occupation = value;
+                                                  invalidOccupation = false;
+
+                                                  occupationEdit = false;
+                                                })
+                                              : setState(() {
+                                                  invalidOccupation = true;
+                                                })
+                                          : setState(() {
+                                              occupationEdit = false;
+                                            });
+                                    },
+                                    onChanged: (value) {
+                                      value.isNotEmpty
+                                          ? validateOccupation(value)
+                                              ? setState(() {
+                                                  occupation = value;
+                                                  invalidOccupation = false;
+                                                })
+                                              : setState(() {
+                                                  invalidOccupation = true;
+                                                })
+                                          : setState(() {
+                                              occupation = temp;
+                                            });
+                                    }),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 24),
+                                child: Visibility(
+                                    visible: invalidOccupation,
+                                    child: Text(
+                                      "Invalid Occupation",
+                                      style: GoogleFonts.roboto(
+                                          textStyle: const TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.w500,
+                                      )),
+                                    )),
+                              )
+                            ],
                           ),
                     Text(
                       "Address",
@@ -809,13 +939,14 @@ class _AccountPageState extends State<AccountPage> {
                                       nameEdit = false;
                                       dobBSEdit = false;
                                       dobADEdit = false;
-                                      genderEdit = false;
+
                                       phonenumEdit = false;
                                       emailEdit = false;
                                       occupationEdit = false;
                                       addressEdit = true;
                                       docEdit = false;
                                       temp = address;
+                                      otherGender = false;
                                     })
                                   : {};
                             },
@@ -834,51 +965,77 @@ class _AccountPageState extends State<AccountPage> {
                               ),
                             ),
                           )
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 6, bottom: 26),
-                            child: Container(
-                              height: 30,
-                              child: TextField(
-                                autofocus: true,
-                                textAlignVertical: TextAlignVertical.bottom,
-                                style: GoogleFonts.roboto(
-                                    textStyle: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                )),
-                                decoration: InputDecoration(
-                                    hintStyle: GoogleFonts.roboto(
-                                        textStyle: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    )),
-                                    fillColor:
-                                        Color.fromARGB(36, 255, 255, 255),
-                                    filled: true,
-                                    border: InputBorder.none),
-                                onSubmitted: (value) {
-                                  value.isNotEmpty
-                                      ? setState(() {
-                                          address = value;
-
-                                          addressEdit = false;
-                                        })
-                                      : setState(() {
-                                          addressEdit = false;
-                                        });
-                                },
-                                onChanged: (value) {
-                                  value.isNotEmpty
-                                      ? setState(() {
-                                          address = value;
-                                        })
-                                      : setState(() {
-                                          address = temp;
-                                        });
-                                },
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin:
+                                    const EdgeInsets.only(top: 6, bottom: 26),
+                                height: 30,
+                                child: TextField(
+                                  autofocus: true,
+                                  textAlignVertical: TextAlignVertical.bottom,
+                                  style: GoogleFonts.roboto(
+                                      textStyle: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                                  decoration: InputDecoration(
+                                      hintStyle: GoogleFonts.roboto(
+                                          textStyle: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      )),
+                                      fillColor:
+                                          Color.fromARGB(36, 255, 255, 255),
+                                      filled: true,
+                                      border: InputBorder.none),
+                                  onSubmitted: (value) {
+                                    value.isNotEmpty
+                                        ? validateAddress(value)
+                                            ? setState(() {
+                                                address = value;
+                                                invalidAddress = false;
+                                                addressEdit = false;
+                                              })
+                                            : setState(() {
+                                                invalidAddress = true;
+                                              })
+                                        : setState(() {
+                                            addressEdit = false;
+                                            invalidAddress = false;
+                                          });
+                                  },
+                                  onChanged: (value) {
+                                    value.isNotEmpty
+                                        ? validateAddress(value)
+                                            ? setState(() {
+                                                invalidAddress = false;
+                                                address = value;
+                                              })
+                                            : setState(() {
+                                                invalidAddress = true;
+                                              })
+                                        : setState(() {
+                                            invalidAddress = false;
+                                            address = temp;
+                                          });
+                                  },
+                                ),
                               ),
-                            ),
+                              Visibility(
+                                  visible: invalidAddress,
+                                  child: Text(
+                                    "Invalid address",
+                                    style: GoogleFonts.roboto(
+                                        textStyle: const TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w500,
+                                    )),
+                                  ))
+                            ],
                           ),
                     Text(
                       "Document type",
@@ -897,13 +1054,14 @@ class _AccountPageState extends State<AccountPage> {
                                       nameEdit = false;
                                       dobBSEdit = false;
                                       dobADEdit = false;
-                                      genderEdit = false;
+
                                       phonenumEdit = false;
                                       emailEdit = false;
                                       occupationEdit = false;
                                       addressEdit = false;
                                       docEdit = true;
                                       temp = documentType;
+                                      otherGender = false;
                                     })
                                   : {};
                             },
@@ -922,50 +1080,47 @@ class _AccountPageState extends State<AccountPage> {
                               ),
                             ),
                           )
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 6, bottom: 26),
-                            child: Container(
-                              height: 30,
-                              child: TextField(
-                                autofocus: true,
-                                textAlignVertical: TextAlignVertical.bottom,
-                                style: GoogleFonts.roboto(
-                                    textStyle: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                )),
-                                decoration: InputDecoration(
-                                    hintStyle: GoogleFonts.roboto(
-                                        textStyle: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    )),
-                                    fillColor:
-                                        Color.fromARGB(36, 255, 255, 255),
-                                    filled: true,
-                                    border: InputBorder.none),
-                                onSubmitted: (value) {
-                                  value.isNotEmpty
-                                      ? setState(() {
-                                          documentType = value;
+                        : Container(
+                            margin: const EdgeInsets.only(top: 6, bottom: 26),
+                            height: 30,
+                            child: TextField(
+                              autofocus: true,
+                              textAlignVertical: TextAlignVertical.bottom,
+                              style: GoogleFonts.roboto(
+                                  textStyle: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              )),
+                              decoration: InputDecoration(
+                                  hintStyle: GoogleFonts.roboto(
+                                      textStyle: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                                  fillColor: Color.fromARGB(36, 255, 255, 255),
+                                  filled: true,
+                                  border: InputBorder.none),
+                              onSubmitted: (value) {
+                                value.isNotEmpty
+                                    ? setState(() {
+                                        documentType = value;
 
-                                          docEdit = false;
-                                        })
-                                      : setState(() {
-                                          docEdit = false;
-                                        });
-                                },
-                                onChanged: (value) {
-                                  value.isNotEmpty
-                                      ? setState(() {
-                                          documentType = value;
-                                        })
-                                      : setState(() {
-                                          documentType = temp;
-                                        });
-                                },
-                              ),
+                                        docEdit = false;
+                                      })
+                                    : setState(() {
+                                        docEdit = false;
+                                      });
+                              },
+                              onChanged: (value) {
+                                value.isNotEmpty
+                                    ? setState(() {
+                                        documentType = value;
+                                      })
+                                    : setState(() {
+                                        documentType = temp;
+                                      });
+                              },
                             ),
                           ),
                   ],
@@ -1021,7 +1176,43 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   bool validateName(String uname) {
-    RegExp name = RegExp(r'^[A-Z]+$', caseSensitive: false);
-    return name.hasMatch(uname) ? true : false;
+    RegExp name = RegExp(
+      r'^[a-zA-Z]+(?: [a-zA-Z]*)*$',
+    );
+    return name.hasMatch(uname);
+  }
+
+  bool validateAddress(String uaddress) {
+    RegExp addr = RegExp(
+        r'^[a-zA-Z]+(-[0-9]{1,2}){0,1}(,[a-zA-Z]+(-[0-9]{1,2}){0,2}?)*$');
+    return addr.hasMatch(uaddress);
+  }
+
+  bool validateOccupation(String occ) {
+    RegExp occupation = RegExp(
+      r'^[a-zA-Z]+(?: [a-zA-Z]*)*$',
+    );
+    return occupation.hasMatch(occ);
+  }
+
+  bool validatePhonenum(String phnum) {
+    RegExp num = RegExp(
+      r'^((\+[0-9]{3})?[1-9][0-9]{9})*$',
+    );
+    return num.hasMatch(phnum);
+  }
+
+  DropdownMenuItem<String> buildMenuItems(String item) {
+    return DropdownMenuItem(
+        value: item,
+        child: Text(
+          item,
+          style: GoogleFonts.roboto(
+              textStyle: const TextStyle(
+            fontSize: 18,
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+          )),
+        ));
   }
 }

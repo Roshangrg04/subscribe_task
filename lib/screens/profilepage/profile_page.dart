@@ -147,53 +147,16 @@ class _ProfilePageState extends State<ProfilePage> {
                                       Icons.account_balance,
                                       color: Colors.white,
                                     )),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "My Bank Account",
-                                      style: GoogleFonts.roboto(
-                                          textStyle: const TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                      )),
-                                    ),
-                                    Text(
-                                      "Connected Banks",
-                                      style: GoogleFonts.roboto(
-                                          textStyle: const TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w300,
-                                      )),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 34, top: 23),
-                            child: Row(
-                              children: [
-                                const Padding(
-                                    padding: EdgeInsets.only(top: 6, right: 36),
-                                    child: Icon(
-                                      Icons.devices,
-                                      color: Colors.white,
-                                    )),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width - 143,
+                                GestureDetector(
+                                  onTap: () => Navigator.pushNamed(
+                                      context, MyRoutes.myBank),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "My Device and Credentials",
+                                        "My Bank Account",
                                         style: GoogleFonts.roboto(
                                             textStyle: const TextStyle(
                                           fontSize: 18,
@@ -202,19 +165,67 @@ class _ProfilePageState extends State<ProfilePage> {
                                         )),
                                       ),
                                       Text(
-                                        "Manage device, credentials & notification IDS",
+                                        "Connected Banks",
                                         style: GoogleFonts.roboto(
                                             textStyle: const TextStyle(
                                           fontSize: 14,
                                           color: Colors.white,
                                           fontWeight: FontWeight.w300,
                                         )),
-                                        softWrap: true,
                                       )
                                     ],
                                   ),
                                 )
                               ],
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                                context, MyRoutes.myDevicesandCredentials),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 34, top: 23),
+                              child: Row(
+                                children: [
+                                  const Padding(
+                                      padding:
+                                          EdgeInsets.only(top: 6, right: 36),
+                                      child: Icon(
+                                        Icons.devices,
+                                        color: Colors.white,
+                                      )),
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width - 143,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "My Device and Credentials",
+                                          style: GoogleFonts.roboto(
+                                              textStyle: const TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                          )),
+                                        ),
+                                        Text(
+                                          "Manage device, credentials & notification IDS",
+                                          style: GoogleFonts.roboto(
+                                              textStyle: const TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w300,
+                                          )),
+                                          softWrap: true,
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                           Padding(
