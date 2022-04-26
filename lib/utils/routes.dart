@@ -6,4 +6,6 @@ class MyRoutes {
   static String account = "/account";
   static String myBank = "/bank";
   static String myDevicesandCredentials = "/devicesandcredentials";
+  static String settings = "/settings";
+  static String idCard = "/idCard";
 }

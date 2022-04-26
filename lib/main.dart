@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:subscribe_task/screens/homepage/home_page.dart';
 import 'package:subscribe_task/screens/newspage/news_page.dart';
 import 'package:subscribe_task/screens/profilepage/account_profile.dart';
+import 'package:subscribe_task/screens/profilepage/id_card.dart';
 import 'package:subscribe_task/screens/profilepage/my_bank.dart';
 import 'package:subscribe_task/screens/profilepage/my_devices_and_credentials.dart';
 import 'package:subscribe_task/screens/profilepage/profile_page.dart';
+import 'package:subscribe_task/screens/profilepage/settings.dart';
 import 'package:subscribe_task/screens/subscribepage/Subscribe.dart';
 import 'package:subscribe_task/screens/subscribepage/netflix_subscribe.dart';
 import 'package:subscribe_task/screens/subscribepage/nflix_subscribed.dart';
@@ -31,7 +33,9 @@ class MyApp extends StatelessWidget {
         MyRoutes.account: (context) => AccountPage(),
         MyRoutes.myBank: (context) => MyBankPage(),
         MyRoutes.myDevicesandCredentials: (context) =>
-            MyDevicesAndCredentialsPage()
+            MyDevicesAndCredentialsPage(),
+        MyRoutes.settings: (context) => Settings(),
+        MyRoutes.idCard: (context) => IdCard(),
       },
     );
   }
