@@ -314,41 +314,48 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 34, top: 23),
-                            child: Row(
-                              children: [
-                                const Padding(
-                                    padding: EdgeInsets.only(top: 6, right: 36),
-                                    child: Icon(
-                                      Icons.exit_to_app,
-                                      color: Colors.white,
-                                    )),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Logout",
-                                      style: GoogleFonts.roboto(
-                                          textStyle: const TextStyle(
-                                        fontSize: 18,
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, MyRoutes.welcome);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 34, top: 23),
+                              child: Row(
+                                children: [
+                                  const Padding(
+                                      padding:
+                                          EdgeInsets.only(top: 6, right: 36),
+                                      child: Icon(
+                                        Icons.exit_to_app,
                                         color: Colors.white,
-                                        fontWeight: FontWeight.w600,
                                       )),
-                                    ),
-                                    Text(
-                                      "Signout from this device",
-                                      style: GoogleFonts.roboto(
-                                          textStyle: const TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w300,
-                                      )),
-                                    )
-                                  ],
-                                )
-                              ],
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Logout",
+                                        style: GoogleFonts.roboto(
+                                            textStyle: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                        )),
+                                      ),
+                                      Text(
+                                        "Signout from this device",
+                                        style: GoogleFonts.roboto(
+                                            textStyle: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w300,
+                                        )),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           )
                         ],

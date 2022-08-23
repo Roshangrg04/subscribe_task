@@ -11,9 +11,9 @@ List<DataModel> dataList = [
   DataModel('asset/images/image4.png', 20.00, 'Netlfix Standard',
       "Unlimited movies, TV shows and many more", "netflixsubs"),
   DataModel('asset/images/image8.png', 48.00, 'Youtube Premium',
-      "Enjoy the videos and music you love, upload original...", ""),
+      "Enjoy the videos and music you love, upload original...", "yt"),
   DataModel('asset/images/image7.png', 17.00, 'Spotify',
-      "Play Your Favorite Songs. Find New Music and See...", "")
+      "Play Your Favorite Songs. Find New Music and See...", "spotify")
 ];
 
 class Devices {

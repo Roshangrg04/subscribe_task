@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:subscribe_task/models/payments.dart';
 import 'package:subscribe_task/models/victims.dart';
 import 'package:subscribe_task/screens/victimpage/components/card_builder.dart';
 import 'package:subscribe_task/screens/victimpage/components/stacked_image.dart';
@@ -16,6 +17,7 @@ class DonationPage extends StatefulWidget {
 
 class _DonationPageState extends State<DonationPage>
     with TickerProviderStateMixin {
+  int ammount = 0;
   @override
   Widget build(BuildContext context) {
     double target = 56900;
@@ -250,6 +252,8 @@ class _DonationPageState extends State<DonationPage>
                                   fillColor: Color.fromARGB(36, 255, 255, 255),
                                   filled: true,
                                   border: InputBorder.none),
+                              onChanged: ((value) =>
+                                  {ammount = int.parse(value)}),
                             ),
                             const SizedBox(
                               height: 27,
@@ -266,41 +270,403 @@ class _DonationPageState extends State<DonationPage>
                             Wrap(
                               spacing: 8,
                               children: [
-                                for (var item in paymentOptions)
-                                  buildCard(item),
+                                for (var item in paymentWays)
+                                  GestureDetector(
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                            context: context,
+                                            isScrollControlled: true,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.vertical(
+                                                        top: Radius.circular(
+                                                            15))),
+                                            builder: (context) => Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 20),
+                                                  child: (Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                      Image.asset(item.imgUrl),
+                                                      SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                      Text(
+                                                        item.identfier,
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                                textStyle:
+                                                                    const TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        )),
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                      ),
+                                                      TextField(
+                                                        keyboardType:
+                                                            TextInputType
+                                                                .number,
+                                                        inputFormatters: [
+                                                          FilteringTextInputFormatter
+                                                              .digitsOnly
+                                                        ],
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                                textStyle:
+                                                                    const TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        )),
+                                                        decoration:
+                                                            InputDecoration(
+                                                                hintStyle: GoogleFonts
+                                                                    .roboto(
+                                                                        textStyle:
+                                                                            const TextStyle(
+                                                                  fontSize: 14,
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          51,
+                                                                          255,
+                                                                          255,
+                                                                          255),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                )),
+                                                                fillColor: Color
+                                                                    .fromARGB(
+                                                                        127,
+                                                                        196,
+                                                                        196,
+                                                                        196),
+                                                                filled: true,
+                                                                border:
+                                                                    InputBorder
+                                                                        .none),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                      Text(
+                                                        "Amount:",
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                                textStyle:
+                                                                    const TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        )),
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                      ),
+                                                      TextField(
+                                                        controller:
+                                                            TextEditingController(
+                                                                text: ammount
+                                                                    .toString()),
+                                                        keyboardType:
+                                                            TextInputType
+                                                                .number,
+                                                        inputFormatters: [
+                                                          FilteringTextInputFormatter
+                                                              .digitsOnly
+                                                        ],
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                                textStyle:
+                                                                    const TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        )),
+                                                        decoration:
+                                                            InputDecoration(
+                                                                hintStyle: GoogleFonts
+                                                                    .roboto(
+                                                                        textStyle:
+                                                                            const TextStyle(
+                                                                  fontSize: 14,
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          51,
+                                                                          255,
+                                                                          255,
+                                                                          255),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                )),
+                                                                fillColor: Color
+                                                                    .fromARGB(
+                                                                        127,
+                                                                        196,
+                                                                        196,
+                                                                        196),
+                                                                filled: true,
+                                                                border:
+                                                                    InputBorder
+                                                                        .none),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                      Text(
+                                                        "Purpose:",
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                                textStyle:
+                                                                    const TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        )),
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                      ),
+                                                      TextField(
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                                textStyle:
+                                                                    const TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        )),
+                                                        decoration:
+                                                            InputDecoration(
+                                                                hintStyle: GoogleFonts
+                                                                    .roboto(
+                                                                        textStyle:
+                                                                            const TextStyle(
+                                                                  fontSize: 14,
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          51,
+                                                                          255,
+                                                                          255,
+                                                                          255),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                )),
+                                                                fillColor: Color
+                                                                    .fromARGB(
+                                                                        127,
+                                                                        196,
+                                                                        196,
+                                                                        196),
+                                                                filled: true,
+                                                                border:
+                                                                    InputBorder
+                                                                        .none),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                      Text(
+                                                        "Remarks",
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                                textStyle:
+                                                                    const TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        )),
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                      ),
+                                                      TextField(
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                                textStyle:
+                                                                    const TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        )),
+                                                        decoration:
+                                                            InputDecoration(
+                                                                hintStyle: GoogleFonts
+                                                                    .roboto(
+                                                                        textStyle:
+                                                                            const TextStyle(
+                                                                  fontSize: 14,
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          51,
+                                                                          255,
+                                                                          255,
+                                                                          255),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                )),
+                                                                fillColor: Color
+                                                                    .fromARGB(
+                                                                        127,
+                                                                        196,
+                                                                        196,
+                                                                        196),
+                                                                filled: true,
+                                                                border:
+                                                                    InputBorder
+                                                                        .none),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                      Row(children: [
+                                                        SizedBox(
+                                                          width: 28,
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                              const SnackBar(
+                                                                  content: Text(
+                                                                      'Thankyou for donating')),
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          21),
+                                                              gradient: LinearGradient(
+                                                                  begin: Alignment
+                                                                      .topCenter,
+                                                                  end: Alignment.bottomCenter,
+                                                                  colors: [
+                                                                    Color.fromARGB(
+                                                                        255,
+                                                                        101,
+                                                                        244,
+                                                                        205),
+                                                                    Color
+                                                                        .fromARGB(
+                                                                            255,
+                                                                            90,
+                                                                            91,
+                                                                            243)
+                                                                  ]),
+                                                            ),
+                                                            height: 30,
+                                                            width: 120,
+                                                            child: Align(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              child: Text(
+                                                                "Donate",
+                                                                style: GoogleFonts
+                                                                    .roboto(
+                                                                        textStyle:
+                                                                            const TextStyle(
+                                                                  fontSize: 10,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                )),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 41,
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          21),
+                                                              gradient: LinearGradient(
+                                                                  begin: Alignment
+                                                                      .topCenter,
+                                                                  end: Alignment.bottomCenter,
+                                                                  colors: [
+                                                                    Color.fromARGB(
+                                                                        255,
+                                                                        101,
+                                                                        244,
+                                                                        205),
+                                                                    Color
+                                                                        .fromARGB(
+                                                                            255,
+                                                                            90,
+                                                                            91,
+                                                                            243)
+                                                                  ]),
+                                                            ),
+                                                            height: 30,
+                                                            width: 120,
+                                                            child: Align(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              child: Text(
+                                                                "Cancel",
+                                                                style: GoogleFonts
+                                                                    .roboto(
+                                                                        textStyle:
+                                                                            const TextStyle(
+                                                                  fontSize: 10,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                )),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ])
+                                                    ],
+                                                  )),
+                                                ));
+                                      },
+                                      child: buildCard(item.imgUrl)),
                               ],
                             ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: Container(
-                                margin:
-                                    const EdgeInsets.only(top: 29, bottom: 18),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(21),
-                                  gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Color.fromARGB(255, 101, 244, 205),
-                                        Color.fromARGB(255, 90, 91, 243)
-                                      ]),
-                                ),
-                                height: 37,
-                                width: 107,
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "Donate",
-                                    style: GoogleFonts.roboto(
-                                        textStyle: const TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                    )),
-                                  ),
-                                ),
-                              ),
-                            )
                           ],
                         ),
                       ),

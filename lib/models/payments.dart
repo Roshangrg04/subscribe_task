@@ -13,3 +13,18 @@ List<Payments> paymentHistory = [
   Payments(
       "asset/images/image8.png", "Youtube Premium", "21 Feb 2:41 am", 48.00)
 ];
+
+class paymentGateways {
+  final String identfier;
+  final String imgUrl;
+  paymentGateways(this.identfier, this.imgUrl);
+}
+
+List<paymentGateways> paymentWays = [
+  paymentGateways('E-sewa ID:', 'asset/images/esewa.png'),
+  paymentGateways('Khalti ID:', 'asset/images/image16.png'),
+  paymentGateways('Account no:', 'asset/images/image17.png'),
+  paymentGateways('CellPay ID: ', 'asset/images/image18.png'),
+  paymentGateways('iPay ID:', 'asset/images/image19.png'),
+  paymentGateways('FonePay ID:', 'asset/images/image20.png'),
+];

@@ -15,18 +15,17 @@ class _VictimPageState extends State<VictimPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            body: CustomScrollView(
-      slivers: [
+            body: Container(
+      width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(
+                "asset/images/DarkThemeBackground1-013.png",
+              ),
+              fit: BoxFit.cover)),
+      child: CustomScrollView(slivers: [
         SliverFillRemaining(
-            child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(
-                    "asset/images/DarkThemeBackground1-013.png",
-                  ),
-                  fit: BoxFit.cover)),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
@@ -259,8 +258,8 @@ class _VictimPageState extends State<VictimPage> {
               ],
             ),
           ),
-        ))
-      ],
+        )
+      ]),
     )));
   }
 }

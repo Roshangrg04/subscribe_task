@@ -43,6 +43,8 @@ class PopularNews {
   final String preview;
   final String time;
   final String content;
+  bool isLiked = false;
+  bool isSaved = false;
   PopularNews(this.imgurl, this.title, this.preview, this.time, this.content);
 }
 

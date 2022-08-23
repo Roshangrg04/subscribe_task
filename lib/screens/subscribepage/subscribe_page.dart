@@ -17,23 +17,22 @@ class SubscribePage extends StatefulWidget {
 }
 
 class _SubscribePageState extends State<SubscribePage> {
-  @override
   int _current = 0;
   int percentage = 75;
-
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: CustomScrollView(slivers: [
-        SliverFillRemaining(
-          child: Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height - 56,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(
-                      "asset/images/DarkThemeBackground1-013.png",
-                    ),
-                    fit: BoxFit.cover)),
+      child: Container(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height - 56,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(
+                  "asset/images/DarkThemeBackground1-013.png",
+                ),
+                fit: BoxFit.cover)),
+        child: CustomScrollView(slivers: [
+          SliverFillRemaining(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +68,7 @@ class _SubscribePageState extends State<SubscribePage> {
                 Container(
                   margin: EdgeInsets.fromLTRB(20, 0, 20, 32),
                   height: 106,
-                  width: 388,
+                  width: MediaQuery.of(context).size.width - 40,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(
@@ -255,25 +254,26 @@ class _SubscribePageState extends State<SubscribePage> {
                   ),
                 ),
                 if (paymentHistory.length == 0) ...[
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 200,
-                    padding: EdgeInsets.only(top: 20),
-                    child: Align(
-                        alignment: Alignment.topCenter,
-                        child: Text(
-                          "NO SUBSCRIPTION YET",
-                          style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color.fromARGB(
-                                    255,
-                                    142,
-                                    142,
-                                    142,
-                                  ))),
-                        )),
+                  Expanded(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.only(top: 20),
+                      child: Align(
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            "NO SUBSCRIPTION YET",
+                            style: GoogleFonts.roboto(
+                                textStyle: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromARGB(
+                                      255,
+                                      142,
+                                      142,
+                                      142,
+                                    ))),
+                          )),
+                    ),
                   )
                 ] else ...[
                   Expanded(
@@ -331,8 +331,8 @@ class _SubscribePageState extends State<SubscribePage> {
               ],
             ),
           ),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 }

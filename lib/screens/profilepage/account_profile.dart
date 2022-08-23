@@ -79,7 +79,6 @@ class _AccountPageState extends State<AccountPage> {
                     color: Colors.white,
                   ),
                   onPressed: () {
-                    saveChanges();
                     Navigator.pop(context);
                   },
                 ),

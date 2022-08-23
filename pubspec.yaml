@@ -40,6 +40,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   like_button: ^2.0.4
   email_validator: '^1.0.6'
+  qr_flutter: ^4.0.0
   
 
 dev_dependencies:
@@ -80,7 +81,11 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+  fonts:
+  - family: HessleyAndreas
+    fonts:
+     - asset: asset/HessleyAndreasRegular.ttf
+
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
