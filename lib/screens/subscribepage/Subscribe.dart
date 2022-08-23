@@ -252,8 +252,9 @@ class _SubsPageState extends State<SubsPage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding:
-                                            EdgeInsets.only(top: 21, bottom: 8),
+                                        padding: EdgeInsets.only(
+                                          top: 21,
+                                        ),
                                         child: Text(
                                           paymentHistory[index].plan,
                                           style: TextStyle(

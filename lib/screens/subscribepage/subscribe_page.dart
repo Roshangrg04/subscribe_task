@@ -107,24 +107,26 @@ class _SubscribePageState extends State<SubscribePage> {
                       ),
                       Column(
                         children: [
-                          Padding(
-                              padding: EdgeInsets.only(top: 19, bottom: 16),
-                              child: Text(
-                                "\$768.00",
-                                style: TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )),
-                          Padding(
-                              padding: EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                "Amount",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ))
+                          SizedBox(
+                            height: 19,
+                          ),
+                          Text(
+                            "\$768.00",
+                            style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Amount",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          )
                         ],
                       ),
                     ],
@@ -243,8 +245,11 @@ class _SubscribePageState extends State<SubscribePage> {
                     effect: WormEffect(activeDotColor: Colors.white),
                   ),
                 ),
+                SizedBox(
+                  height: 16,
+                ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 22, 0, 19),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     "Payment History",
                     style: TextStyle(
@@ -252,6 +257,9 @@ class _SubscribePageState extends State<SubscribePage> {
                         fontWeight: FontWeight.w600,
                         color: Colors.white),
                   ),
+                ),
+                SizedBox(
+                  height: 16,
                 ),
                 if (paymentHistory.length == 0) ...[
                   Expanded(
@@ -300,8 +308,9 @@ class _SubscribePageState extends State<SubscribePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding:
-                                          EdgeInsets.only(top: 21, bottom: 8),
+                                      padding: EdgeInsets.only(
+                                        top: 21,
+                                      ),
                                       child: Text(
                                         paymentHistory[index].plan,
                                         style: TextStyle(
