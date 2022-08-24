@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:subscribe_task/models/models.dart';
+import 'package:subscribe_task/models/newstab.dart';
+import 'package:subscribe_task/models/victims.dart';
 import 'package:subscribe_task/utils/routes.dart';
 
 class Home extends StatefulWidget {
@@ -104,6 +106,7 @@ class _HomeState extends State<Home> {
                     height: 106,
                     width: double.infinity,
                     child: GridView.builder(
+                        physics: NeverScrollableScrollPhysics(),
                         itemCount: dataList.length,
                         scrollDirection: Axis.horizontal,
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
@@ -331,6 +334,7 @@ class _HomeState extends State<Home> {
                     width: double.infinity,
                     height: 180 * victimsList.length / 2,
                     child: GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: victimsList.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,

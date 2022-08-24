@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:subscribe_task/utils/routes.dart';
 
-class NetFlixSub extends StatefulWidget {
-  const NetFlixSub({Key? key}) : super(key: key);
+class YtSub extends StatefulWidget {
+  const YtSub({Key? key}) : super(key: key);
 
   @override
-  State<NetFlixSub> createState() => _NetFlixSubState();
+  State<YtSub> createState() => _YtSubState();
 }
 
-class _NetFlixSubState extends State<NetFlixSub> {
+class _YtSubState extends State<YtSub> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -47,7 +47,7 @@ class _NetFlixSubState extends State<NetFlixSub> {
                   Padding(
                       padding: EdgeInsets.only(top: 87, bottom: 18),
                       child: Image.asset(
-                        "asset/images/image4.png",
+                        "asset/images/image8.png",
                         width: 150,
                         height: 150,
                         fit: BoxFit.cover,
@@ -62,7 +62,7 @@ class _NetFlixSubState extends State<NetFlixSub> {
                   Padding(
                       padding: EdgeInsets.only(top: 33, bottom: 33),
                       child: Text(
-                        "Unlimited movies, TV shows, and many more.",
+                        "Premium contents without ads",
                         style: GoogleFonts.roboto(
                           textStyle: TextStyle(
                             fontSize: 12,

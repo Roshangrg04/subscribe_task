@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class NflixSubscribe extends StatefulWidget {
-  const NflixSubscribe({Key? key}) : super(key: key);
+class SpotifySubscribe extends StatefulWidget {
+  const SpotifySubscribe({Key? key}) : super(key: key);
 
   @override
-  State<NflixSubscribe> createState() => _NflixSubscribeState();
+  State<SpotifySubscribe> createState() => _SpotifySubscribeState();
 }
 
-class _NflixSubscribeState extends State<NflixSubscribe> {
+class _SpotifySubscribeState extends State<SpotifySubscribe> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,7 +28,7 @@ class _NflixSubscribeState extends State<NflixSubscribe> {
                 Padding(
                     padding: EdgeInsets.only(top: 87, bottom: 54),
                     child: Image.asset(
-                      "asset/images/image4.png",
+                      "asset/images/image7.png",
                       width: 150,
                       height: 150,
                       fit: BoxFit.cover,
@@ -43,7 +43,7 @@ class _NflixSubscribeState extends State<NflixSubscribe> {
                 Padding(
                     padding: EdgeInsets.only(top: 29, bottom: 111),
                     child: Text(
-                      "Enjoy your unlimited movies, TV shows,\nand many more.",
+                      "Enjoy listening to unlimited song without ads",
                       style: GoogleFonts.roboto(
                         textStyle: TextStyle(
                           fontSize: 14,
