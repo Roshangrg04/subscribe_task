@@ -144,7 +144,12 @@ class _PhoneVerifyState extends State<PhoneVerify> {
                                         p2 = value,
                                         if (value.length == 1)
                                           {FocusScope.of(context).nextFocus()},
-                                        otpComplete()
+                                        otpComplete(),
+                                        if (value.isEmpty || value.length == 0)
+                                          {
+                                            FocusScope.of(context)
+                                                .previousFocus()
+                                          }
                                       },
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.roboto(
@@ -174,7 +179,12 @@ class _PhoneVerifyState extends State<PhoneVerify> {
                                         p3 = value,
                                         if (value.length == 1)
                                           {FocusScope.of(context).nextFocus()},
-                                        otpComplete()
+                                        otpComplete(),
+                                        if (value.isEmpty || value.length == 0)
+                                          {
+                                            FocusScope.of(context)
+                                                .previousFocus()
+                                          }
                                       },
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.roboto(
@@ -202,9 +212,12 @@ class _PhoneVerifyState extends State<PhoneVerify> {
                                     child: TextField(
                                       onChanged: (value) => {
                                         p4 = value,
-                                        if (value.length == 1)
-                                          {FocusScope.of(context).nextFocus()},
-                                        otpComplete()
+                                        otpComplete(),
+                                        if (value.isEmpty || value.length == 0)
+                                          {
+                                            FocusScope.of(context)
+                                                .previousFocus()
+                                          }
                                       },
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.roboto(

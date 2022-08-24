@@ -217,44 +217,6 @@ class _DonationPageState extends State<DonationPage>
                                 ],
                               ),
                             ),
-                            Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 17),
-                                child: Text(
-                                  "How much do you want to donate?",
-                                  style: GoogleFonts.roboto(
-                                      textStyle: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  )),
-                                  textAlign: TextAlign.start,
-                                )),
-                            TextField(
-                              keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly
-                              ],
-                              style: GoogleFonts.roboto(
-                                  textStyle: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                              )),
-                              decoration: InputDecoration(
-                                  hintStyle: GoogleFonts.roboto(
-                                      textStyle: const TextStyle(
-                                    fontSize: 14,
-                                    color: Color.fromARGB(51, 255, 255, 255),
-                                    fontWeight: FontWeight.w600,
-                                  )),
-                                  hintText: "ENTER YOUR AMOUNT",
-                                  fillColor: Color.fromARGB(36, 255, 255, 255),
-                                  filled: true,
-                                  border: InputBorder.none),
-                              onChanged: ((value) =>
-                                  {ammount = int.parse(value)}),
-                            ),
                             const SizedBox(
                               height: 27,
                             ),
