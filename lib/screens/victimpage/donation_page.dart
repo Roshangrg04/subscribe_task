@@ -340,10 +340,6 @@ class _DonationPageState extends State<DonationPage>
                                                             TextAlign.start,
                                                       ),
                                                       TextField(
-                                                        controller:
-                                                            TextEditingController(
-                                                                text: ammount
-                                                                    .toString()),
                                                         keyboardType:
                                                             TextInputType
                                                                 .number,
@@ -362,17 +358,15 @@ class _DonationPageState extends State<DonationPage>
                                                         )),
                                                         decoration:
                                                             InputDecoration(
+                                                                hintText:
+                                                                    "Enter ammount",
                                                                 hintStyle: GoogleFonts
                                                                     .roboto(
                                                                         textStyle:
                                                                             const TextStyle(
                                                                   fontSize: 14,
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          51,
-                                                                          255,
-                                                                          255,
-                                                                          255),
+                                                                  color: Colors
+                                                                      .black,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,

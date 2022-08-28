@@ -484,17 +484,15 @@ class _AccountPageState extends State<AccountPage> {
                             ? GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    setState(() {
-                                      nameEdit = false;
-                                      dobBSEdit = false;
-                                      dobADEdit = false;
-                                      phonenumEdit = false;
-                                      emailEdit = false;
-                                      occupationEdit = false;
-                                      addressEdit = false;
-                                      docEdit = false;
-                                      temp = gender;
-                                    });
+                                    nameEdit = false;
+                                    dobBSEdit = false;
+                                    dobADEdit = false;
+                                    phonenumEdit = false;
+                                    emailEdit = false;
+                                    occupationEdit = false;
+                                    addressEdit = false;
+                                    docEdit = false;
+                                    temp = gender;
                                   });
                                 },
                                 child: Container(
@@ -520,6 +518,14 @@ class _AccountPageState extends State<AccountPage> {
                                         onChanged: (value) {
                                           value == "Others(Specify)"
                                               ? setState(() {
+                                                  nameEdit = false;
+                                                  dobBSEdit = false;
+                                                  dobADEdit = false;
+                                                  phonenumEdit = false;
+                                                  emailEdit = false;
+                                                  occupationEdit = false;
+                                                  addressEdit = false;
+                                                  docEdit = false;
                                                   otherGender = true;
                                                 })
                                               : setState(() {
@@ -557,7 +563,6 @@ class _AccountPageState extends State<AccountPage> {
                                       value.isNotEmpty
                                           ? setState(() {
                                               gender = value;
-
                                               otherGender = false;
                                             })
                                           : null;
