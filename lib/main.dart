@@ -26,6 +26,8 @@ void main() {
   runApp(MyApp());
 }
 
+final ValueNotifier selectedIndexGlobal = ValueNotifier(0);
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -77,53 +79,57 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      body: pages[_current_index],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        showUnselectedLabels: true,
-        showSelectedLabels: true,
-        backgroundColor: Color.fromARGB(255, 41, 40, 40),
-        currentIndex: _current_index,
-        iconSize: 17,
-        selectedItemColor: Colors.grey,
-        unselectedItemColor: Colors.white,
-        selectedFontSize: 13,
-        onTap: (index) {
-          setState(() {
-            _current_index = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage("asset/images/Vectorhome.png"),
-            ),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-              icon: ImageIcon(
-                AssetImage("asset/images/Vectornews.png"),
-              ),
-              label: "News"),
-          BottomNavigationBarItem(
-              icon: ImageIcon(
-                AssetImage("asset/images/Vectorsubscribe.png"),
-                size: 15,
-              ),
-              label: "Subscribe"),
-          BottomNavigationBarItem(
-              icon: ImageIcon(
-                AssetImage("asset/images/heart1 1.png"),
-              ),
-              label: "Victim"),
-          BottomNavigationBarItem(
-              icon: ImageIcon(
-                AssetImage("asset/images/Vectorprofile.png"),
-              ),
-              label: "Profile"),
-        ],
-      ),
-    ));
+        child: ValueListenableBuilder(
+            valueListenable: selectedIndexGlobal,
+            builder: (context, value, child) {
+              return Scaffold(
+                body: pages[selectedIndexGlobal.value],
+                bottomNavigationBar: BottomNavigationBar(
+                  type: BottomNavigationBarType.fixed,
+                  showUnselectedLabels: true,
+                  showSelectedLabels: true,
+                  backgroundColor: Color.fromARGB(255, 41, 40, 40),
+                  currentIndex: selectedIndexGlobal.value,
+                  iconSize: 17,
+                  selectedItemColor: Colors.grey,
+                  unselectedItemColor: Colors.white,
+                  selectedFontSize: 13,
+                  onTap: (index) {
+                    setState(() {
+                      selectedIndexGlobal.value = index;
+                    });
+                  },
+                  items: const [
+                    BottomNavigationBarItem(
+                      icon: ImageIcon(
+                        AssetImage("asset/images/Vectorhome.png"),
+                      ),
+                      label: "Home",
+                    ),
+                    BottomNavigationBarItem(
+                        icon: ImageIcon(
+                          AssetImage("asset/images/Vectornews.png"),
+                        ),
+                        label: "News"),
+                    BottomNavigationBarItem(
+                        icon: ImageIcon(
+                          AssetImage("asset/images/Vectorsubscribe.png"),
+                          size: 15,
+                        ),
+                        label: "Subscribe"),
+                    BottomNavigationBarItem(
+                        icon: ImageIcon(
+                          AssetImage("asset/images/heart1 1.png"),
+                        ),
+                        label: "Victim"),
+                    BottomNavigationBarItem(
+                        icon: ImageIcon(
+                          AssetImage("asset/images/Vectorprofile.png"),
+                        ),
+                        label: "Profile"),
+                  ],
+                ),
+              );
+            }));
   }
 }

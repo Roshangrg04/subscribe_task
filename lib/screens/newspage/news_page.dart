@@ -167,8 +167,6 @@ class _NewsPageState extends State<NewsPage> with TickerProviderStateMixin {
                                   controller: _scrollcontroller,
                                   radius: Radius.circular(35),
                                   child: ListView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
                                       scrollDirection: Axis.vertical,
                                       controller: _scrollcontroller,
                                       itemCount: popularList.length,
